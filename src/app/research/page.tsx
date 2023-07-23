@@ -1,8 +1,18 @@
-export default function Research() {
+import React from "react";
+import { PublicationCards } from "./ResearchItemCard";
+
+const Research = async () => {
   return (
-    <main className="">
-      This is a research page
-    </main>
+    <div className="p-24">
+      <h2 className='text-2xl mb-6'>Publications</h2>
+      <PublicationCards />
+    </div>
   )
-}
+};
+
+export default Research;
+
+
+
+
 

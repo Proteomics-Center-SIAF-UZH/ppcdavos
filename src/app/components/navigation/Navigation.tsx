@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const LinkItem = ({name, href}:{name: string, href:string}) =>                
-    <Link href={href} className="hover:bg-sky-50 hover:rounded-sm hover:text-sky-950 p-1 transition-all">{name}</Link>
+    <Link href={href} className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 p-1 transition-all">{name}</Link>
 
 
 const Navigation = () => { 
