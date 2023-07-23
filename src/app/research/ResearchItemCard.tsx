@@ -16,7 +16,7 @@ const IconDown = () =>
 
 
 const Publication = 
-    ({title, arthors, journal, link, abstract}:{title:string, authors:string[], journal:string, link:string, abstract: string}) => 
+    ({title, journal, link, abstract}:{title:string, journal:string, link:string, abstract: string}) => 
         <a href={link} target="_blank">
             <div className="hover:shadow-xl hover:bg-slate-100 transition-all border p-6 my-8">
                 <h2 className="text-lg font-bold">{title}</h2>
