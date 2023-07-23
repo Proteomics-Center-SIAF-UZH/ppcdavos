@@ -2,8 +2,8 @@ const FooterColumn = ({title, items}:{title:string, items:{link: string; name:st
     <div>
         <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">{title}</h2>
         <ul className="text-sm space-4">
-            {items.map((item)=>(
-                <li>
+            {items.map((item, i)=>(
+                <li key={i}>
                    <a href={item.link} className="hover:underline">{item.name}</a>
                 </li>
             ))}

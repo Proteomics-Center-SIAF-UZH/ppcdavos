@@ -21,10 +21,10 @@ export default function About() {
       <div>
         <h2 className='text-2xl mb-6'>Our team</h2>
           <div className="flex space-x-8">
-          {dummyProps.map((member)=>(
-            <div className="w-full max-w-xs h-full max-h-sm">
-            <MemberCard {...member}/>
-          </div>
+          {dummyProps.map((member,i)=>(
+            <div className="w-full max-w-xs h-full max-h-sm" key={i}>
+              <MemberCard {...member}/>
+            </div>
           ))}
           </div>
       </div>
