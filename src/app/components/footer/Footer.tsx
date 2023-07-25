@@ -18,6 +18,11 @@ const Footer =  () =>
                 <a href="https://flowbite.com/" className="flex items-center">
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">© 2023 Precision Proteomic Center Davos</span>
                 </a>
+                <div className="text-sm text-gray-400 mt-2">
+                    Swiss Institute of Allergy and Asthma Research<br/>
+                    Hermann Burchard Strasse 9, 7265 Davos <br/>
+                    Switzerland
+                </div>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                 <FooterColumn title='Relevant websites' items={[{name: 'University of Zurich', link:'https://uzh.ch/de.html'},{name:'SIAF', link:'https://https://www.siaf.uzh.ch/'}]}/>

@@ -1,6 +1,9 @@
+import Link from "next/link"
+
 export const MemberCard = 
     ({name, title, image = 'user.png', email, telephone}:{name: string, title: string, image?:string, email: string, telephone: string}) => {
         return (
+            <Link href={'/about/philipp'}>
             <div className="bg-white mx-auto p-4 border border-gray-200 rounded-lg shadow hover:shadow-xl transition-shadow">
                 <div className="flex flex-col items-center pb-10">
                     <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={`/images/members/${image}`} alt={image}/>
@@ -13,5 +16,6 @@ export const MemberCard =
                     </div>
                 </div>
             </div>
+            </Link>
         )   
 }

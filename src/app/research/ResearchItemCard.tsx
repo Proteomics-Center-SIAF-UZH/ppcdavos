@@ -41,7 +41,7 @@ export const PublicationCards = () => {
         <div>
             {!hasLaterPublications &&                
                 <div className="flex flex-col items-center scale-75 text-slate-500">
-                    This is the newest publication
+                    No more newest publication
                 </div> 
             }
             {hasLaterPublications && 
