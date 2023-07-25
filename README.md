@@ -1,6 +1,6 @@
 ## Intro
 
-- The preview of the website can be found at: https://ppcdavos-7e07wvkpv-xiaosunxs.vercel.app/
+- The preview of the website can be found at: https://ppcdavos-beige.vercel.app/
 - To install all the pacakges, please run `npm install`
 
 
