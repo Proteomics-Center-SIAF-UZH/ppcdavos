@@ -6,7 +6,8 @@ export const MemberCard =
             <Link href={'/about/philipp'}>
             <div className="bg-white mx-auto p-4 border border-gray-200 rounded-lg shadow hover:shadow-xl transition-shadow">
                 <div className="flex flex-col items-center pb-10">
-                    <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={`/images/members/${image}`} alt={image}/>
+                    
+                    <img className="image-fit mb-3 shadow-lg" src={`/images/members/${image}`} alt={image}/>
                     <h5 className="mb-1 text-xl font-medium text-gray-900">{name}</h5>
                     <span className="text-gray-500">{title}</span>
 

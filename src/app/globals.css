@@ -31,3 +31,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.image-fit {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+}
