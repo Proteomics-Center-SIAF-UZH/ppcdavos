@@ -2,66 +2,55 @@
 
 import { useState } from "react";
 import { truncateString } from "../helper/trunctuateText";
-import { publications } from "./data";
+import { publications, type Publication } from "./papers";
 
-const IconUp = () => 
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-    </svg>
+const Publication =
+    ({ title, journal, link, abstract, Authors }: { title: string, journal: string, link: string, abstract: string, Authors: JSX.Element }) => {
+        return (
+            // <a href={link} target="_blank">
+            <div className="border-b p-6 my-8 space-y-2">
+                <div className="flex flex-wrap justify-between">
+                    <a href={link} target="_blank" className="hover:text-blue-900 text-lg font-bold">
+                        {title}
+                    </a>
+                </div>
+                <p className="scale-80">{Authors}</p>
+                <p className="text-gray-500 flex flex-wrap justify-between pr-2">
+                    <div>{journal} (Maybe there's a more scientific way to include volumns...?)</div>
+                </p>
+            </div >
+            // </a>
+        )
+    }
 
-const IconDown = () => 
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-    </svg>
-
-
-const Publication = 
-    ({title, journal, link, abstract}:{title:string, journal:string, link:string, abstract: string}) => 
-        <a href={link} target="_blank">
-            <div className="hover:shadow-xl hover:bg-slate-100 transition-all border p-6 my-8">
-                <h2 className="text-lg font-bold">{title}</h2>
-                <div>{journal}</div>
-                <div className="text-slate-600">{truncateString(abstract,300)}</div>
-            </div>
-        </a>
-    
+const PublicationInYear = ({ year, publications }: { year: number, publications: Publication[] }) => {
+    return (
+        <div className='space-y-10'>
+            <h3 className='text-2xl'>{year}</h3>
+            {publications.map((publication, i) => <Publication {...publication} key={`${year}-${i}`} />)}
+        </div>)
+}
 
 export const PublicationCards = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const totalPublicationCount = publications.length;
+    const sortedPublications = publications.sort((a, b) => b.year - a.year)
 
-    const hasLaterPublications = currentIndex > 0;
-    const hasEarlierPublications = currentIndex + 5 < totalPublicationCount;
+    const publicationsByYear = sortedPublications.reduce((res, publication) => {
+        const publicationYear = publication.year;
+        const publicationsInSameYear = res.get(publicationYear)
+        if (publicationsInSameYear) {
+            res.set(publicationYear, [...publicationsInSameYear, publication])
+            return res
+        }
+        res.set(publicationYear, [publication])
+        return res
+    }, new Map<number, Publication[]>())
 
-    const visiblePublications = publications.slice(currentIndex, hasEarlierPublications? currentIndex + 5 : totalPublicationCount)
-
-    
+    const years = [...publicationsByYear.keys()]
 
     return (
-        <div>
-            {!hasLaterPublications &&                
-                <div className="flex flex-col items-center scale-75 text-slate-500">
-                    No more newest publication
-                </div> 
-            }
-            {hasLaterPublications && 
-                <div className="flex flex-col items-center scale-75 hover:scale-100 transition-all" onClick={()=>setCurrentIndex(Math.max(0, currentIndex - 5))}>
-                    View more newer publications
-                    <IconUp />
-                </div>
-            }
-            {visiblePublications.map((publication,i)=><Publication {...publication} key={i}/>)}
-            {hasEarlierPublications && 
-                <div className="flex flex-col items-center scale-75 hover:scale-100 transition-all" onClick={()=>setCurrentIndex(Math.min(totalPublicationCount - 5, currentIndex + 5))}>
-                    View more earlier publications
-                    <IconDown />
-                </div>
-            }
-            {!hasEarlierPublications &&                
-                <div className="flex flex-col items-center scale-75 text-slate-500">
-                    No more earlier publication
-                </div> 
-            }
+        <div className="space-y-16">
+            {years.map((v) => (
+                <PublicationInYear year={v} publications={publicationsByYear.get(v) || []} key={`year-${v}`} />))}
         </div>)
 
 }
