@@ -7,7 +7,6 @@ import { publications, type Publication } from "./papers";
 const Publication =
     ({ title, journal, link, abstract, Authors }: { title: string, journal: string, link: string, abstract: string, Authors: JSX.Element }) => {
         return (
-            // <a href={link} target="_blank">
             <div className="border-b p-6 my-8 space-y-2">
                 <div className="flex flex-wrap justify-between">
                     <a href={link} target="_blank" className="hover:text-blue-900 text-lg font-bold">
@@ -16,10 +15,9 @@ const Publication =
                 </div>
                 <p className="scale-80">{Authors}</p>
                 <p className="text-gray-500 flex flex-wrap justify-between pr-2">
-                    <div>{journal} (Maybe there's a more scientific way to include volumns...?)</div>
+                    <div>{journal} (Maybe theres a more scientific way to include volumns...?)</div>
                 </p>
             </div >
-            // </a>
         )
     }
 

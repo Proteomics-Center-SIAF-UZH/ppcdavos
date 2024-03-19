@@ -43,8 +43,8 @@ const MemberTable = ({ members }: { members: Member[] }) => {
           </tr>
         </thead>
         <tbody>
-          {members.map((member) => (
-            <tr className="bg-white border-b border-b-gray-200 border-gray-700 text-gray-700">
+          {members.map((member, index) => (
+            <tr className="bg-white border-b border-b-gray-200 border-gray-700 text-gray-700" key={`member-${index}`}>
               <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
                 {member.name}
               </th>
