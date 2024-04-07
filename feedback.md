@@ -1,10 +1,10 @@
 ## Feedback March 19 2024
-- New page "Infrastructure"
+- ✅ New page "Infrastructure" 
     - Machine/technology
 - New page "Research"
     - Text TBD
-- Rename "Research" to "Publications"
-- Rename "About us" to "Teams"
+- ✅ Rename "Research" to "Publications"
+- ✅ Rename "About us" to "Teams"
 - Footer:
     - Add contact email (christoph), after address
     - Next to relevant website: 

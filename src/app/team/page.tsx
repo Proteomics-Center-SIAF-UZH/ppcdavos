@@ -60,7 +60,7 @@ const MemberTable = ({ members }: { members: Member[] }) => {
     </div>)
 }
 
-export default function About() {
+export default function Team() {
   const professors = teamMembers.filter((v) => v.title === Title.PROFESSOR)
   const labManagers = teamMembers.filter((v) => v.title === Title.LAB_MAMAGER)
   const doctoralCandidates = teamMembers.filter((v) => v.title === Title.DOCTORAL_CANDIDATE)

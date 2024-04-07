@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { truncateString } from "../helper/trunctuateText";
+import { truncateString } from "../utils/trunctuateText";
 import { publications, type Publication } from "./papers";
 
 const Publication =
