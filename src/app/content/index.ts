@@ -1,3 +1,3 @@
-export { TEAM_MEMBERS } from './teamMembers'
+export { TEAM_MEMBERS } from "./teamMembers";
 
-export type { Member } from './types'
+export type { Member } from "./types";

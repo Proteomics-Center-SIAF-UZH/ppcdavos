@@ -3,7 +3,6 @@
 - The preview of the website can be found at: https://ppcdavos-beige.vercel.app/
 - To install all the pacakges, please run `npm install`
 
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
