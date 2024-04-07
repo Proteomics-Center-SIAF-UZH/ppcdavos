@@ -3,7 +3,7 @@ import Link from "next/link";
 const LinkItem = ({ name, href }: { name: string; href: string }) => (
   <Link
     href={href}
-    className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 transition-all px-2 my-1"
+    className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 transition-all px-2 py-1"
   >
     {name}
   </Link>

@@ -2,7 +2,7 @@ import { TextWithImageSection } from "./components/section/TextWithImageSection"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen p-24">
+    <div className="grow">
       <TextWithImageSection
         title={"About the lab"}
         imgSrc={"images/siaf_birdview.png"}
