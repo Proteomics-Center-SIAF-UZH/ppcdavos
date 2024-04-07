@@ -11,3 +11,12 @@ export type Member = {
   email: string;
   telephone: string;
 };
+
+export type Publication = {
+  title: string;
+  journal: string;
+  link: string;
+  year: number;
+  Authors: JSX.Element;
+  abstract: string;
+};

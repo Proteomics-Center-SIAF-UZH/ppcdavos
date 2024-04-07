@@ -18,3 +18,4 @@ Philipp Todo:
 - Research page content and pictures
 - Team members emails and phone numbers
 - List of funding providers name, logos and their website
+

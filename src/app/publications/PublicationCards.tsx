@@ -1,8 +1,5 @@
-"use client";
+import { Publication, publications } from "../content";
 
-import { useState } from "react";
-import { truncateString } from "../utils/trunctuateText";
-import { publications, type Publication } from "./papers";
 
 const Publication = ({
   title,
@@ -31,7 +28,7 @@ const Publication = ({
       <p className="scale-80">{Authors}</p>
       <p className="text-gray-500 flex flex-wrap justify-between pr-2">
         <div>
-          {journal} (Maybe theres a more scientific way to include volumns...?)
+          {journal}
         </div>
       </p>
     </div>

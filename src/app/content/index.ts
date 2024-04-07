@@ -1,3 +1,4 @@
-export { TEAM_MEMBERS } from "./teamMembers";
+export * from "./teamMembers";
+export * from './publications'
 
-export type { Member } from "./types";
+export type { Member, Publication } from "./types";

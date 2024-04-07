@@ -1,5 +1,5 @@
 import React from "react";
-import { PublicationCards } from "./ResearchItemCard";
+import { PublicationCards } from "./PublicationCards";
 
 const Publications = async () => {
   return (
