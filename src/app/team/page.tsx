@@ -1,4 +1,3 @@
-import { TextWithImageSection } from "../components/section/TextWithImageSection";
 import { TEAM_MEMBERS } from "../content";
 import { Title } from "../content/types";
 import { MemberTable } from "./MemberTable";
