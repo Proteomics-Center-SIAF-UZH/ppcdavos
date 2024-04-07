@@ -7,7 +7,7 @@
 - ✅ Rename "Research" to "Publications"
 - ✅ Rename "About us" to "Teams"
 - Footer:
-  - Add contact email (christoph), after address
+  - ✅ Add contact email (christoph), after address
   - Next to relevant website:
     - Logos of funding providers "Grants" or "Fundings". Link to funding's website
 - Mobile version compatible
