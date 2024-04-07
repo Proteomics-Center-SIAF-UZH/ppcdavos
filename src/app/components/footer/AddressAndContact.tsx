@@ -16,7 +16,7 @@ export const AddressAndContact = () => (
                     </a>
                 </p>
                 <p>
-                    <a href="mailto:christoph.messner@siaf.uzh.ch">Contact us via Email</a>
+                    <a href="mailto:christoph.messner@siaf.uzh.ch" className="email">Contact us via Email</a>
                 </p>
             </div>
         </div>

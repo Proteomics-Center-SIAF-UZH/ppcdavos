@@ -5,7 +5,7 @@ const CHRISTOPH = {
     title: Title.PROFESSOR,
     image: "christoph.jpeg",
     email: "christoph.messner@siaf.uzh.ch",
-    telephone: "+410777777777",
+    telephone: "+41(0)81 420 07 30",
 };
 
 const PATRICK = {
@@ -13,7 +13,7 @@ const PATRICK = {
     title: Title.LAB_MAMAGER,
     image: "patrick.jpeg",
     email: "patrick.westermann@siaf.uzh.ch",
-    telephone: "+410777777777",
+    telephone: "+41(0)81 410 08 50",
 };
 
 const PHILIPP = {
@@ -21,7 +21,7 @@ const PHILIPP = {
     title: Title.DOCTORAL_CANDIDATE,
     image: "philipp.jpeg",
     email: "philipp.gessner@siaf.uzh.ch",
-    telephone: "+410777777777",
+    telephone: undefined,
 };
 
 const XINDONG = {
@@ -29,7 +29,7 @@ const XINDONG = {
     title: Title.DOCTORAL_CANDIDATE,
     image: "xindong.jpeg",
     email: "xindong.sun@siaf.uzh.ch",
-    telephone: "+410777777777",
+    telephone: undefined,
 };
 
 const LOPAMUDRA = {
@@ -37,7 +37,7 @@ const LOPAMUDRA = {
     title: Title.DOCTORAL_CANDIDATE,
     image: "lopamudra.jpeg",
     email: "lopamudra.chatterjee@siaf.uzh.ch",
-    telephone: "+410777777777",
+    telephone: undefined,
 };
 
 export const TEAM_MEMBERS: Member[] = [

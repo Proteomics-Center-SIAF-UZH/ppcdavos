@@ -10,8 +10,8 @@ export default function Team() {
   );
 
   return (
-    <div className="p-24 space-y-16">
-      <div className="mb-16 space-y-4">
+    <div className="space-y-16">
+      <div className="mb-16 space-y-6">
         <h3 className="text-2xl">Group lead</h3>
         <MemberTable members={professors} />
       </div>

@@ -9,7 +9,7 @@ export type Member = {
   title: Title;
   image: string;
   email: string;
-  telephone: string;
+  telephone?: string;
 };
 
 export type Publication = {

@@ -34,3 +34,7 @@ body {
   width: 100px;
   height: 100px;
 }
+
+.email {
+  text-decoration: underline;
+}
