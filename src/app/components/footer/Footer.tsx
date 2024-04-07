@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AddressAndContact } from './AddressAndContact';
+
 const FooterColumn = ({
   title,
   items,
@@ -25,27 +29,8 @@ const Footer = () => (
   <footer className="bg-sky-950 text-white">
     <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
       <div className="md:flex md:justify-between">
-        <div className="mb-6 md:mb-0">
-          <a href="https://flowbite.com/" className="flex items-center">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              © 2023 Precision Proteomic Center Davos
-            </span>
-          </a>
-          <div className="text-sm text-gray-400 mt-2">
-            Swiss Institute of Allergy and Asthma Research
-            <br />
-            Hermann Burchard Strasse 9, 7265 Davos <br />
-            Switzerland
-          </div>
-        </div>
+        <AddressAndContact />
         <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-          <FooterColumn
-            title="Relevant websites"
-            items={[
-              { name: "University of Zurich", link: "https://uzh.ch/de.html" },
-              { name: "SIAF", link: "https://https://www.siaf.uzh.ch/" },
-            ]}
-          />
           <FooterColumn
             title="Relevant websites"
             items={[
@@ -57,9 +42,6 @@ const Footer = () => (
       </div>
       <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm sm:text-center dark:text-gray-400">
-          Built with Next.js and Tailwind
-        </span>
         <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
           <a
             href="https://twitter.com/i/flow/login?redirect_after_login=%2Fchr_messner"
