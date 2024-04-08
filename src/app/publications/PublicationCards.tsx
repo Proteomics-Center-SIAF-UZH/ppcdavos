@@ -1,6 +1,5 @@
 import { Publication, publications } from "../content";
 
-
 const Publication = ({
   title,
   journal,
@@ -44,7 +43,7 @@ const PublicationInYear = ({
 }) => {
   return (
     <div className="space-y-10">
-      <h3 className="text-2xl">{year}</h3>
+      <h3 className="text-xl">{year}</h3>
       {publications.map((publication, i) => (
         <Publication {...publication} key={`${year}-${i}`} />
       ))}

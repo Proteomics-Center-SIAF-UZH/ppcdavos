@@ -27,7 +27,11 @@ export const MemberTable = ({ members }: { members: Member[] }) => {
                 {member.name}
               </td>
               <td scope='row' className="pl-2 py-2 w-3/10 break-words" >
-                <a href={`mailto:${member.email}`} className="email">{member.email}</a>
+                <a href={`mailto:${member.email}`} className="email">
+                  <span>
+                    {member.email}
+                  </span>
+                </a>
               </td>
               <td scope='row' className="pl-2 py-2 w-2/10 text-wrap">{member.telephone || '-'}</td>
             </tr>
