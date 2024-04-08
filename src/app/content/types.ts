@@ -20,3 +20,8 @@ export type Publication = {
   Authors: JSX.Element;
   abstract: string;
 };
+
+export type OpenPositions = {
+  title: string;
+  isActive: boolean
+}
