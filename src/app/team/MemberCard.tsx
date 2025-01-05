@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export const MemberCard = ({
   name,
   title,
@@ -14,7 +12,7 @@ export const MemberCard = ({
   telephone: string;
 }) => {
   return (
-    <Link href={"/about/philipp"}>
+    <a href={"/about/philipp"}>
       <div className="bg-white mx-auto p-4 border border-gray-200 rounded-lg shadow hover:shadow-xl transition-shadow">
         <div className="flex flex-col items-center pb-10">
           <img
@@ -30,6 +28,6 @@ export const MemberCard = ({
           </div>
         </div>
       </div>
-    </Link>
+    </a>
   );
 };

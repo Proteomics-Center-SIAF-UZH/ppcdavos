@@ -1,21 +1,19 @@
-import Link from "next/link";
-
 const LinkItem = ({ name, href }: { name: string; href: string }) => (
-  <Link
+  <a
     href={href}
     className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 transition-all px-2 py-1"
   >
     {name}
-  </Link>
+  </a>
 );
 
 const Navigation = () => {
   return (
     <div className="flex flex-col sm:flex-row sm:flex-nowrap justify-between px-16 py-8 bg-sky-950 text-white">
       <div>
-        <Link href="/">
+        <a href="/">
           <h1 className="text-xl font-bold px-2 my-1">Precision Proteomic Center Davos</h1>
-        </Link>
+        </a>
       </div>
       <div className="flex flex-col sm:flex-row sm:flex-nowrap">
         <LinkItem href="/team" name="Team" />
