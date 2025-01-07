@@ -1,17 +1,20 @@
-import { Publication, publications } from "../content";
+import { publications } from "../content";
+import type { Publication } from "../content"
 
 const Publication = ({
   title,
   journal,
   link,
-  abstract,
   Authors,
+  abstract,
+  year
 }: {
   title: string;
   journal: string;
   link: string;
-  abstract: string;
+  abstract?: string;
   Authors: JSX.Element;
+  year: number;
 }) => {
   return (
     <div className="border-b p-6 my-8 space-y-2">
@@ -45,7 +48,7 @@ const PublicationInYear = ({
     <div className="space-y-10">
       <h3 className="text-xl">{year}</h3>
       {publications.map((publication, i) => (
-        <Publication {...publication} key={`${year}-${i}`} />
+        <Publication {...publication} year={year} key={`${year}-${i}`} />
       ))}
     </div>
   );

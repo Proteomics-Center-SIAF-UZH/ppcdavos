@@ -18,7 +18,7 @@ export type Publication = {
   link: string;
   year: number;
   Authors: JSX.Element;
-  abstract: string;
+  abstract?: string;
 };
 
 export type OpenPositions = {
