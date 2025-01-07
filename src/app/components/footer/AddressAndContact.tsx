@@ -3,11 +3,9 @@ import { EnvelopeIcon, MapPinIcon } from '@heroicons/react/24/solid'
 export const AddressAndContact = () => (
     <>
         <div className="mb-6 md:mb-0">
-            <a href="https://flowbite.com/" className="flex items-center">
-                <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                    Precision Proteomic Center Davos
-                </span>
-            </a>
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                Precision Proteomic Center Davos
+            </span>
             <div className="text-sm text-gray-400 mt-2 space-y-1">
                 <p>
                     <a href='https://maps.app.goo.gl/6uEb99trRzCVJxP67' target='_blank' className='flex flex-row space-x-1'>

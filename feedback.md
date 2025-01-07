@@ -24,4 +24,6 @@ Philipp Todo:
 - ✅ Update publication list
 - ✅ Add a new "About us" page -> content pending, should be about research
 - ✅ Add link to Bluesky
-- ✅  Add logo
+- ✅ Add logo
+- Add page for each member
+- Add Open position content -> content pending
