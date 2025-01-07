@@ -19,3 +19,9 @@ Philipp Todo:
 - Team members emails and phone numbers
 - List of funding providers name, logos and their website
 
+
+## Feedback 6th Jan 2025
+- ✅ Update publication list
+- ✅ Add a new "About us" page -> content pending, should be about research
+- ✅ Add link to Bluesky
+- ✅  Add logo
