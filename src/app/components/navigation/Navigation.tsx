@@ -13,7 +13,7 @@ const Navigation = () => {
       <a href="/" className="flex items-center">
         <h1 className="text-xl font-bold my-1 flex items-center">
           <img
-            src={'logos/White bg + logo 5k.png'}
+            src={'/logos/White bg + logo 5k.png'}
             alt={'Precision Proteomic Center Davos logo'}
             className="w-10 h-auto%"
           />
