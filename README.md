@@ -40,4 +40,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Deploy on UZH domain 
 - Run `npm run build`
-- Upload the entire contents of the new `out` directory to your Plesk httpdocs folder
+- Upload the entire contents of the new `out` directory to your Plesk `httpdocs` folder
+  - Make sure that you keep the `httpdocs/apps` and `httpdocs/whp` folders untouched
