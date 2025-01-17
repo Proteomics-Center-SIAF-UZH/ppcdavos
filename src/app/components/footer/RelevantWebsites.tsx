@@ -11,7 +11,7 @@ export const RelevantWebsites = ({
         <ul className="text-sm space-4 text-gray-400">
             {items.map((item, i) => (
                 <li key={i}>
-                    <a href={item.link} className="hover:underline">
+                    <a href={item.link} target="_blank" className="hover:underline">
                         {item.name}
                     </a>
                 </li>

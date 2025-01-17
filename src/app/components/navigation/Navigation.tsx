@@ -15,10 +15,10 @@ const Navigation = () => {
         <h1 className="text-xl font-bold flex items-end">
           {shouldDisplayLogo && <img
             src={'/logos/White bg + logo 5k.png'}
-            alt="Precision Proteomic Center Davos logo"
+            alt="Precision Proteomics Center Davos logo"
             className="w-14 h-auto mb-1"
           />}
-          <p className="px-2">Precision Proteomic Center Davos</p>
+          <p className="px-2">Precision Proteomics Center Davos</p>
         </h1>
       </a>
       <div className="flex flex-col sm:flex-row sm:flex-nowrap items-end">

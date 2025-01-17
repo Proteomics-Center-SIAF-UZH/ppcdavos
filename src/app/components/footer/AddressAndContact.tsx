@@ -3,7 +3,7 @@ import { EnvelopeIcon, MapPinIcon } from '@heroicons/react/24/solid'
 export const AddressAndContact = () => (
     <div className="mb-6 md:mb-0">
         <span className="self-center text-xl font-semibold whitespace-nowrap">
-            Precision Proteomic Center Davos
+            Precision Proteomics Center Davos
         </span>
         <div className="text-sm text-gray-400 mt-2 space-y-1">
             <p>
