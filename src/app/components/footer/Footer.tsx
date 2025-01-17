@@ -1,27 +1,5 @@
 import { AddressAndContact } from './AddressAndContact';
-
-const FooterColumn = ({
-  title,
-  items,
-}: {
-  title: string;
-  items: { link: string; name: string }[];
-}) => (
-  <div>
-    <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-      {title}
-    </h2>
-    <ul className="text-sm space-4">
-      {items.map((item, i) => (
-        <li key={i}>
-          <a href={item.link} className="hover:underline">
-            {item.name}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+import { RelevantWebsites } from './RelevantWebsites';
 
 const Footer = () => (
   <footer className="bg-sky-950 text-white">
@@ -29,11 +7,11 @@ const Footer = () => (
       <div className="md:flex md:justify-between">
         <AddressAndContact />
         <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-          <FooterColumn
+          <RelevantWebsites
             title="Relevant websites"
             items={[
               { name: "University of Zurich", link: "https://uzh.ch/de.html" },
-              { name: "SIAF", link: "https://https://www.siaf.uzh.ch/" },
+              { name: "SIAF", link: "https://www.siaf.uzh.ch/" },
             ]}
           />
         </div>

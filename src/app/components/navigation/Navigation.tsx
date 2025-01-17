@@ -8,15 +8,16 @@ const LinkItem = ({ name, href }: { name: string; href: string }) => (
 );
 
 const Navigation = () => {
+  const shouldDisplayLogo = false;
   return (
     <div className="flex flex-col sm:flex-row sm:flex-nowrap justify-between items-end px-16 py-8 bg-sky-950 text-white">
       <a href="/" className="flex items-center">
         <h1 className="text-xl font-bold flex items-end">
-          <img
+          {shouldDisplayLogo && <img
             src={'/logos/White bg + logo 5k.png'}
             alt="Precision Proteomic Center Davos logo"
             className="w-14 h-auto mb-1"
-          />
+          />}
           <p className="px-2">Precision Proteomic Center Davos</p>
         </h1>
       </a>
