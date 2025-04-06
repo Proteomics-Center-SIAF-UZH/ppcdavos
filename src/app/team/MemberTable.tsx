@@ -24,7 +24,7 @@ export const MemberTable = ({ members }: { members: Member[] }) => {
               key={`member-${index}`}
             >
               <td scope="row" className="pl-2 py-2 w-5/10 font-medium text-wrap">
-                {member.name}
+                {member.name}{member.isVisiting? ' (visiting)':''}
               </td>
               <td scope='row' className="pl-2 py-2 w-3/10 break-words" >
                 <a href={`mailto:${member.email}`} className="email">

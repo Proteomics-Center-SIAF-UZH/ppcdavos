@@ -8,6 +8,9 @@ export default function Team() {
   const doctoralCandidates = TEAM_MEMBERS.filter(
     (v) => v.title === Title.DOCTORAL_CANDIDATE,
   );
+  const postDocs =  TEAM_MEMBERS.filter((v) => v.title === Title.POST_DOC);
+  const labTechnicians = TEAM_MEMBERS.filter((v)=>v.title === Title.LAB_TECHNICIAN);
+  
 
   return (
     <div className="space-y-16">
@@ -18,6 +21,14 @@ export default function Team() {
       <div className="mb-16 space-y-4">
         <h3 className="text-2xl">Lab manager</h3>
         <MemberTable members={labManagers} />
+      </div>
+      <div className="mb-16 space-y-4">
+        <h3 className="text-2xl">Lab technician</h3>
+        <MemberTable members={labTechnicians} />
+      </div>
+      <div className="mb-16 space-y-4">
+        <h3 className="text-2xl">Post doctoral researchers</h3>
+        <MemberTable members={postDocs} />
       </div>
       <div className="mb-16 space-y-4">
         <h3 className="text-2xl">Doctoral candidates</h3>

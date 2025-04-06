@@ -1,7 +1,10 @@
 export enum Title {
   PROFESSOR = "Professor",
   LAB_MAMAGER = "Lab manager",
+  LAB_TECHNICIAN = "Lab technician",
   DOCTORAL_CANDIDATE = "Doctoral candidate",
+  VISITING_PHD_STUDENT = "Visiting PhD student",
+  POST_DOC = "Post doctoral researcher",
 }
 
 export type Member = {
@@ -10,6 +13,7 @@ export type Member = {
   image: string;
   email: string;
   telephone?: string;
+  isVisiting?: boolean;
 };
 
 export type Publication = {
@@ -23,5 +27,5 @@ export type Publication = {
 
 export type OpenPositions = {
   title: string;
-  isActive: boolean
-}
+  isActive: boolean;
+};
