@@ -9,7 +9,7 @@ export default function Research() {
         {research.map(({title, textBlocks})=>
         <>
             <div className="space-y-4">
-              {!!title && (<h2 className="text-xl mb-6">{title}</h2>)}
+              {!!title && (<h2 className="text-lg mb-6">{title}</h2>)}
               {textBlocks.map((text, index) =>
                 <div key={index} className="text-slate-700 space-y-4">
                   {text}
