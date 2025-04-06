@@ -2,7 +2,7 @@ import { EmptyPage } from "../components/EmptyPage";
 import { OPEN_POSITIONS } from "../content/openPositions";
 
 const NoOpenPosition = () =>
-  <div className="space-y-6 max-w-3xl mx-auto">
+  <div className="space-y-6 max-w-3xl mx-auto text-slate-700">
     <div className="text-2xl">
       No open positions
     </div>
