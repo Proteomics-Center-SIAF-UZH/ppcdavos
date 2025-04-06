@@ -25,7 +25,7 @@ const Navigation = () => {
         <LinkItem href="/aboutUs" name="About us" />
         <LinkItem href="/team" name="Team" />
         <LinkItem href="/publications" name="Publications" />
-        <LinkItem href="/infrastructure" name="Infrastructure" />
+        <LinkItem href="/services" name="Services" />
         <LinkItem href="/openPositions" name="Open Positions" />
       </div>
     </div>

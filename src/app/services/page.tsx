@@ -1,8 +1,8 @@
 import React from "react";
 import { EmptyPage } from "../components/EmptyPage";
 
-const Infrastructure = async () => {
+const Services = async () => {
   return <EmptyPage />;
 };
 
-export default Infrastructure;
+export default Services;
