@@ -1,6 +1,32 @@
 import { Publication } from "./types";
 
 export const publications: Publication[] = [
+    // 2025
+
+    {
+        title:
+            "Serum Proteomics Reveals Survival-Associated Biomarkers in Pancreatic Cancer Patients Treated with Chemoimmunotherapy",
+        journal: "iScience",
+        Authors: (
+            <div>
+                Tognetti, M., <b>Chatterjee, L.</b>, Beaton, N., Sklodowski, K., Bruderer, R., Reiter, L., <b>Messner, C. B.</b>
+            </div>
+        ),
+        link: 'https://www.sciencedirect.com/science/article/pii/S2589004225004912',
+        year: 2025,
+    },
+    // {
+    //     title:
+    //         "Nature Immunology (accepted)", 
+    //     journal: "Nature Immunology",
+    //     Authors: (
+    //         <div>
+    //             Feng, X., Anderssson, T., Flüchter, P., Gschwend, J., Berest, I., Muff, J. L., Lechner, A., Gondrad, A., Westermann, P., Brander, N., Carchidi, D., Tenorio, C.De, Pan, T., Boehm, U., Klose, C. S. N., Artis, D., <b>Messner, C. B.</b>, Leinders-Zufall, T., Zufall, F., Schneider, C.
+    //         </div>
+    //     ),
+    //     link: '', 
+    //     year: 2025,
+    // },
     // 2024
     {
         title:
