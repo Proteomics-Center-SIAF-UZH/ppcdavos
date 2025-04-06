@@ -1,7 +1,7 @@
 const LinkItem = ({ name, href }: { name: string; href: string }) => (
   <a
     href={href}
-    className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 transition-all px-2 inline-flex items-center"
+    className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 transition-all px-3 inline-flex items-center"
   >
     {name}
   </a>
@@ -23,6 +23,7 @@ const Navigation = () => {
       </a>
       <div className="flex flex-col sm:flex-row sm:flex-nowrap items-end">
         <LinkItem href="/aboutUs" name="About us" />
+        <LinkItem href="/research" name="Research" />
         <LinkItem href="/team" name="Team" />
         <LinkItem href="/publications" name="Publications" />
         <LinkItem href="/services" name="Services" />
