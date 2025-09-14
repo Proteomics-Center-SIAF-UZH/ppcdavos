@@ -13,7 +13,6 @@ export default function Team() {
       .then(setTeamMembers)
       .catch(console.error);
   }, []);
-  console.log({ teamMembers });
 
   if (!teamMembers) return <div>Loading...</div>;
 
