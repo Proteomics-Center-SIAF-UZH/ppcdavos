@@ -5,7 +5,7 @@ export const MemberTable = ({ members }: { members: Member[] }) => {
     <div className="relative overflow-x-auto">
       <table className="w-full table-fixed text-sm text-left rtl:text-right text-gray-100">
         <thead className="text-xs text-gray-700 bg-gray-200 uppercase">
-          <tr >
+          <tr>
             <th scope="col" className="pl-2 py-3 w-5/10 text-wrap">
               Name
             </th>
@@ -23,17 +23,22 @@ export const MemberTable = ({ members }: { members: Member[] }) => {
               className="bg-white border-b border-b-gray-200 border-gray-700 text-gray-700"
               key={`member-${index}`}
             >
-              <td scope="row" className="pl-2 py-2 w-5/10 font-medium text-wrap">
-                {member.name}{member.isVisiting? ' (visiting)':''}
+              <td
+                scope="row"
+                className="pl-2 py-2 w-5/10 font-medium text-wrap"
+              >
+                {member.prefix ? member.prefix : ""}
+                {member.name}
+                {member.isVisiting ? " (visiting)" : ""}
               </td>
-              <td scope='row' className="pl-2 py-2 w-3/10 break-words" >
+              <td scope="row" className="pl-2 py-2 w-3/10 break-words">
                 <a href={`mailto:${member.email}`} className="email">
-                  <span>
-                    {member.email}
-                  </span>
+                  <span>{member.email}</span>
                 </a>
               </td>
-              <td scope='row' className="pl-2 py-2 w-2/10 text-wrap">{member.telephone || '-'}</td>
+              <td scope="row" className="pl-2 py-2 w-2/10 text-wrap">
+                {member.telephone || "-"}
+              </td>
             </tr>
           ))}
         </tbody>

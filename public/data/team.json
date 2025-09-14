@@ -1,6 +1,8 @@
 [
   {
-    "name": "Prof. Dr. Christoph Messner",
+    "name": "Christoph Messner",
+    "otherNames": ["Christoph B. Messner"],
+    "prefix": "Prof. Dr. ",
     "title": "Professor",
     "image": "christoph.jpeg",
     "email": "christoph.messner@siaf.uzh.ch",

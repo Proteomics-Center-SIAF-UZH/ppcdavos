@@ -9,6 +9,8 @@ export enum Title {
 
 export type Member = {
   name: string;
+  otherNames?: string[];
+  prefix?: string;
   title: Title;
   image: string;
   email: string;
@@ -21,7 +23,7 @@ export type Publication = {
   journal: string;
   link: string;
   year: number;
-  Authors: JSX.Element;
+  authors: string[];
   abstract?: string;
 };
 
