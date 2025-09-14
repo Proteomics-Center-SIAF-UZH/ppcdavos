@@ -38,3 +38,8 @@ export type OpenPosition = {
   duration?: string;
   isActive: boolean;
 };
+
+export type ResearchItem = {
+  title?: string;
+  textBlocks: string[];
+};

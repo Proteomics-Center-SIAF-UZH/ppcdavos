@@ -19,7 +19,7 @@
     "location": "Davos, Switzerland",
     "type": "PhD",
     "duration": "3-4 years",
-    "isActive": true
+    "isActive": false
   },
   {
     "title": "Postdoctoral Researcher in Clinical Proteomics",
