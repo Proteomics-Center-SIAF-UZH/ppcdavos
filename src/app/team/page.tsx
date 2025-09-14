@@ -1,16 +1,31 @@
-import { TEAM_MEMBERS } from "../content";
-import { Title } from "../content/types";
+"use client";
+
+import { useEffect, useState } from "react";
+import { Member, Title } from "../content/types";
 import { MemberTable } from "./MemberTable";
 
 export default function Team() {
-  const professors = TEAM_MEMBERS.filter((v) => v.title === Title.PROFESSOR);
-  const labManagers = TEAM_MEMBERS.filter((v) => v.title === Title.LAB_MAMAGER);
-  const doctoralCandidates = TEAM_MEMBERS.filter(
+  const [teamMembers, setTeamMembers] = useState<Member[]>([]);
+
+  useEffect(() => {
+    fetch("/data/team.json")
+      .then((res) => res.json())
+      .then(setTeamMembers)
+      .catch(console.error);
+  }, []);
+  console.log({ teamMembers });
+
+  if (!teamMembers) return <div>Loading...</div>;
+
+  const professors = teamMembers.filter((v) => v.title === Title.PROFESSOR);
+  const labManagers = teamMembers.filter((v) => v.title === Title.LAB_MAMAGER);
+  const doctoralCandidates = teamMembers.filter(
     (v) => v.title === Title.DOCTORAL_CANDIDATE,
   );
-  const postDocs =  TEAM_MEMBERS.filter((v) => v.title === Title.POST_DOC);
-  const labTechnicians = TEAM_MEMBERS.filter((v)=>v.title === Title.LAB_TECHNICIAN);
-  
+  const postDocs = teamMembers.filter((v) => v.title === Title.POST_DOC);
+  const labTechnicians = teamMembers.filter(
+    (v) => v.title === Title.LAB_TECHNICIAN,
+  );
 
   return (
     <div className="space-y-16">

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Prof. Dr. Christoph Messner",
+    "title": "Professor",
+    "image": "christoph.jpeg",
+    "email": "christoph.messner@siaf.uzh.ch",
+    "telephone": "+41(0)81 420 07 30"
+  },
+  {
+    "name": "Patrick Westermann",
+    "title": "Lab manager",
+    "image": "patrick.jpeg",
+    "email": "patrick.westermann@siaf.uzh.ch",
+    "telephone": "+41(0)81 410 08 50"
+  },
+  {
+    "name": "Philipp Gessner",
+    "title": "Doctoral candidate",
+    "image": "philipp.jpeg",
+    "email": "philipp.gessner@siaf.uzh.ch",
+    "telephone": null
+  },
+  {
+    "name": "Xindong Sun",
+    "title": "Doctoral candidate",
+    "image": "xindong.jpeg",
+    "email": "xindong.sun@siaf.uzh.ch",
+    "telephone": null
+  },
+  {
+    "name": "Lopamudra Chatterjee",
+    "title": "Doctoral candidate",
+    "image": "lopamudra.jpeg",
+    "email": "lopamudra.chatterjee@siaf.uzh.ch",
+    "telephone": null
+  },
+  {
+    "name": "Anna-Sophia Egger-Hörschinger",
+    "title": "Post doctoral researcher",
+    "image": "anna-sophia.jpeg",
+    "email": "anna-sophia.egger@siaf.uzh.ch",
+    "telephone": null
+  },
+  {
+    "name": "Teresa Betz",
+    "title": "Lab technician",
+    "image": "teresa.jpeg",
+    "email": "teresa.betz@siaf.uzh.ch",
+    "telephone": null
+  },
+  {
+    "name": "Erika Esposito",
+    "title": "Doctoral candidate",
+    "image": "erika.jpeg",
+    "email": "erika.esposito@siaf.uzh.ch",
+    "telephone": null,
+    "isVisiting": true
+  }
+]
