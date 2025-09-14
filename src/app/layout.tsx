@@ -19,13 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex flex-col h-screen justify-between">
+        <div className="flex flex-col min-h-screen justify-between">
           <Navigation />
-          <div className="w-full px-16 sm:px-32 md:px-48 lg:px-64 py-16">{children}</div>
+          <div className="w-full px-16 sm:px-32 md:px-48 lg:px-64 py-16">
+            {children}
+          </div>
           <Footer />
         </div>
       </body>
-
     </html>
   );
 }

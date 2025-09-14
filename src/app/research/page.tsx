@@ -3,7 +3,7 @@ import { research } from "../content/research";
 
 export default function Research() {
   return (
-    <div className="max-w-3xl mx-auto px-6">
+    <div>
       <h2 className="text-2xl mb-6">Research</h2>
       <div className="space-y-6">
         {research.map(({title, textBlocks})=>

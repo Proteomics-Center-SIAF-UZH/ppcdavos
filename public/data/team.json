@@ -56,6 +56,7 @@
     "image": "erika.jpeg",
     "email": "erika.esposito@siaf.uzh.ch",
     "telephone": null,
-    "isVisiting": true
+    "isVisiting": true,
+    "isAlumni": true
   }
 ]

@@ -16,6 +16,7 @@ export type Member = {
   email: string;
   telephone?: string;
   isVisiting?: boolean;
+  isAlumni?: boolean;
 };
 
 export type Publication = {
@@ -27,7 +28,13 @@ export type Publication = {
   abstract?: string;
 };
 
-export type OpenPositions = {
+export type OpenPosition = {
   title: string;
+  description: string;
+  requirements: string[];
+  responsibilities: string[];
+  location: string;
+  type: string; // e.g., "Full-time", "Part-time", "PhD", "Postdoc"
+  duration?: string;
   isActive: boolean;
 };

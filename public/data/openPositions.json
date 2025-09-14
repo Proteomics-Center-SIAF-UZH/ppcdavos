@@ -1,0 +1,46 @@
+[
+  {
+    "title": "PhD Student in Proteomics",
+    "description": "We are seeking a highly motivated PhD student to join our proteomics research team. The successful candidate will work on developing novel mass spectrometry-based methods for clinical proteomics applications.",
+    "requirements": [
+      "Master's degree in Chemistry, Biochemistry, Biology, or related field",
+      "Strong background in analytical chemistry or mass spectrometry",
+      "Experience with proteomics workflows preferred",
+      "Excellent written and oral communication skills in English",
+      "Ability to work independently and as part of a team"
+    ],
+    "responsibilities": [
+      "Develop and optimize mass spectrometry methods for clinical samples",
+      "Analyze proteomics data using bioinformatics tools",
+      "Collaborate with clinical partners on biomarker discovery projects",
+      "Present research findings at conferences and in publications",
+      "Contribute to laboratory maintenance and safety protocols"
+    ],
+    "location": "Davos, Switzerland",
+    "type": "PhD",
+    "duration": "3-4 years",
+    "isActive": true
+  },
+  {
+    "title": "Postdoctoral Researcher in Clinical Proteomics",
+    "description": "An exciting opportunity for a postdoctoral researcher to lead cutting-edge research in clinical proteomics. The position involves developing innovative approaches for personalized medicine applications.",
+    "requirements": [
+      "PhD in Chemistry, Biochemistry, Biology, or related field",
+      "Extensive experience in mass spectrometry and proteomics",
+      "Strong publication record in peer-reviewed journals",
+      "Experience with clinical sample analysis",
+      "Proficiency in data analysis and bioinformatics tools"
+    ],
+    "responsibilities": [
+      "Lead independent research projects in clinical proteomics",
+      "Mentor PhD students and junior researchers",
+      "Develop novel analytical methods for biomarker discovery",
+      "Collaborate with international research partners",
+      "Write grant proposals and secure external funding"
+    ],
+    "location": "Davos, Switzerland",
+    "type": "Postdoc",
+    "duration": "2-3 years",
+    "isActive": false
+  }
+]

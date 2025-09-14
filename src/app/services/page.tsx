@@ -17,7 +17,7 @@ const Services = async () => {
             We have a particular focus on skin disease research and offer specialized expertise in non-invasive sampling techniques, such as adhesive tape strips.
           </p>   
           <p>
-            To collaborate with us, please contact Christoph Messner at <a href={`mailto: ${'christoph.messner@siaf.uzh.ch'}`}>christoph.messner@siaf.uzh.ch</a>.
+            To collaborate with us, please contact Christoph Messner at <a href={`mailto:${'christoph.messner@siaf.uzh.ch'}`} className="text-blue-600 underline">christoph.messner@siaf.uzh.ch</a>.
           </p>
         </>
       }

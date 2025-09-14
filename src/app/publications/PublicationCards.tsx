@@ -98,8 +98,6 @@ export const PublicationCards = () => {
       .catch(console.error);
   }, []);
 
-  console.log({ teamMemberNames });
-
   const sortedPublications = publications.sort((a, b) => b.year - a.year);
 
   const publicationsByYear = sortedPublications.reduce((res, publication) => {

@@ -23,7 +23,7 @@ export const MemberCard = ({
           <h5 className="mb-1 text-xl font-medium text-gray-900">{name}</h5>
           <span className="text-gray-500">{title}</span>
           <div className="text-sm flex flex-col items-center pt-2">
-            <a href={`mailto: ${email}`}> {email}</a>
+            <a href={`mailto:${email}`}>{email}</a>
             <span>{telephone}</span>
           </div>
         </div>
