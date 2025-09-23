@@ -9,7 +9,7 @@ export const AddressAndContact = () => (
             <p>
                 <a href='https://maps.app.goo.gl/6uEb99trRzCVJxP67' target='_blank' className='flex flex-row space-x-1'>
                     <MapPinIcon className='w-5 h-5' />
-                    <span>Hermann Burchard Strasse 9, 7265 Davos, Switzerland</span>
+                    <span>Herman Burchard Strasse 9, 7265 Davos, Switzerland</span>
                 </a>
             </p>
             <p>
