@@ -1,5 +1,7 @@
 import { ResearchItem } from "../content/types";
 import researchData from "../../../public/data/research.json";
+import { TextWithImageSection } from "../components/section/TextWithImageSection";
+import { TextWithoutImageSection } from "../components/section/TextWithoutImageSection";
 
 // Function to convert markdown-style links [text](url) to clickable links
 const parseTextWithLinks = (text: string) => {
@@ -38,20 +40,39 @@ export default function Research() {
     <div className="gap-y-8">
       <h2 className="text-2xl mb-6">Research</h2>
       <div className="space-y-12">
-        {research.map(({title, textBlocks}, index)=>
-        <div key={index} className="space-y-4">
-          {!!title && (
-            <h2 className="text-xl font-semibold text-slate-800 mb-6 pb-3">
-              {title}
-            </h2>
-          )}
-           {textBlocks.map((text, textIndex) =>
-             <div key={textIndex} className="text-slate-700 space-y-4">
-               {parseTextWithLinks(text)}
-             </div>
-           )}
-          </div>)}
+        {research.map(({title, textBlocks, imageSrc, imageAlt}, index) => {
+          const textContent = (
+            <>
+              {textBlocks.map((text, textIndex) => (
+                <p key={textIndex}>{parseTextWithLinks(text)}</p>
+              ))}
+            </>
+          );
+
+          // Use TextWithImageSection if image is provided, otherwise TextWithoutImageSection
+          if (imageSrc && imageAlt) {
+            return (
+              <div key={index}>
+                <TextWithImageSection
+                  title={title}
+                  text={textContent}
+                  imgSrc={imageSrc}
+                  imgAlt={imageAlt}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div key={index}>
+                <TextWithoutImageSection
+                  title={title}
+                  text={textContent}
+                />
+              </div>
+            );
+          }
+        })}
       </div>
-  </div>
+    </div>
   );
 }
