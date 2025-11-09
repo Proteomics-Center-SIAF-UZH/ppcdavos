@@ -5,7 +5,7 @@ export default function Home() {
     <div className="grow">
       <TextWithImageSection
         title={"About the lab"}
-        imgSrc={"images/siaf_birdview.png"}
+        imgSrc={"/images/siaf_birdview.png"}
         imgAlt="Siaf Birdview"
         text={
           <>

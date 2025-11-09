@@ -6,8 +6,8 @@ const AboutUs = async () => {
         <div className="grow">
           <TextWithImageSection
             title={"About us"}
-            imgSrc={"../images/about_us.jpeg"}
-            imgAlt="Siaf Birdview"
+            imgSrc={"/images/about_us.jpg"}
+            imgAlt="about us"
             text={
               <>
                 <p>

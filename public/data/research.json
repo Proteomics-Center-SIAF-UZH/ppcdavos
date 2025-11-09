@@ -11,7 +11,9 @@
     "textBlocks": [
       "Inflammatory skin diseases, such as atopic dermatitis, are complex conditions influenced by both genetic and environmental factors. While the number of available treatments continues to grow, diagnosis still relies on subjective clinical scoring, and personalized treatment approaches remain limited.",
       "Our platform enables a comprehensive mapping of the skin proteome to unravel disease phenotypes. Beyond traditional skin biopsies, we work with non-invasive sampling methods like tape strips, which enhance patient accessibility and facilitate routine clinical implementation. Our ultimate goal is to identify disease-specific protein signatures that enable early detection, personalized treatment selection, and precise monitoring of therapeutic responses."
-    ]
+    ],
+    "imageSrc": "/images/research_SkinProteomics.png",
+    "imageAlt": "skinProteomics"
   },
   {
     "title": "Precision Proteomics in Lymphoma Research",
@@ -26,7 +28,9 @@
     "textBlocks": [
       "Glycosylation is a fundamental post-translational modification that plays a crucial role in immune system regulation. Aberrant glycosylation patterns have been linked to various diseases, yet the field remains underexplored due to technological challenges in analyzing glycan structures. At the Proteomics Center in Davos, we are actively developing workflows and data analysis pipelines to enable the mapping of glycosylation patterns, addressing their complexity and low ionization efficiency in mass spectrometry-based measurements.",
       "Given the central role of IgE antibodies in allergic reactions, we are particularly interested in understanding how glycosylation impacts clinical outcomes and treatment responses. By dissecting the molecular mechanisms underlying glycosylation changes, we aim to uncover novel biomarkers and therapeutic targets that could improve allergy diagnostics and management."
-    ]
+    ],
+    "imageSrc": "/images/research_Glycosylation.png",
+    "imageAlt": "glycosylation"
   },
   {
     "title": "Proteome Profiling of Immune Cells in Health and Disease",
@@ -39,6 +43,8 @@
     "title": "Targeted Metabolomics of Amino Acids and Central Metabolites",
     "textBlocks": [
       "Cellular metabolism is a highly complex and interconnected set of biochemical reactions that occur within a cell. These reactions are required to provide energy and building blocks essential for cell survival, growth and proliferation. We are developing methods for the quantification of amino acids and key metabolites of glycolysis and the tricarboxylic acid cycle. Combined with our proteomics approaches, metabolic profiling provides a more complete picture. In collaboration with the [Sokolowska lab](https://www.siaf.uzh.ch/immune_metabolism.html), we are studying metabolism in the context of immune cells, where metabolic reprogramming plays a pivotal role in deciding cell fate and effector function."
-    ]
+    ],
+    "imageSrc": "/images/research_TargetedMetabolomics.png",
+    "imageAlt": "targetedMetabolomics"
   }
 ]

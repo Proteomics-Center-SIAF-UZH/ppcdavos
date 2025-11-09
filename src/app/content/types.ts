@@ -42,4 +42,6 @@ export type OpenPosition = {
 export type ResearchItem = {
   title?: string;
   textBlocks: string[];
+  imageSrc?: string;
+  imageAlt?: string;
 };
