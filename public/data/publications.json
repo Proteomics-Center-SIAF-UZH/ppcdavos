@@ -1,5 +1,35 @@
 [
   {
+    "title": "Postbiotics and Nicotinamide Utilize Distinct Mechanisms to Improve Skin Barrier Integrity, Inflammation, and Keratinocyte Differentiation",
+    "journal": "Allergy",
+    "authors": [
+      "Yagiz Pat",
+      "Duygu Yazici",
+      "Huseyn Babayev",
+      "Sena Ardicli",
+      "Xiangting Bu",
+      "Sheri Simmons",
+      "Anthony Almada",
+      "Christine Avena",
+      "Tye Jensen",
+      "Raja Dhir",
+      "Patrick Westermann",
+      "Asuncion Garcia-Sanchez",
+      "Manru Li",
+      "Ozge Ardicli",
+      "Can Zeyneloglu",
+      "Marco Pane",
+      "Angela Amoruso",
+      "Christoph Messner",
+      "Ismail Ogulur",
+      "Yasutaka Mitamura",
+      "Mubeccel Akdis",
+      "Cezmi A. Akdis"
+    ],
+    "link": "https://onlinelibrary.wiley.com/doi/10.1111/all.70225",
+    "year": 2026
+  },
+  {
     "title": "Serum Proteomics Reveals Survival-Associated Biomarkers in Pancreatic Cancer Patients Treated with Chemoimmunotherapy",
     "journal": "iScience",
     "authors": [
@@ -12,6 +42,97 @@
       "Christoph B. Messner"
     ],
     "link": "https://www.sciencedirect.com/science/article/pii/S2589004225004912",
+    "year": 2025
+  },
+  {
+    "title": "Performance characteristics of Zeno trap scanning DIA for sensitive and quantitative proteomics at high throughput",
+    "journal": "Proteomics (accepted)",
+    "authors": [
+      "Sinn L. R.",
+      "Wang Z.",
+      "Alvarez C. P.",
+      "Chelur A.",
+      "Batruch I.",
+      "Pribil P.",
+      "Ludwig D.",
+      "Tate S.",
+      "Castro-Perez J.",
+      "Messner C. B.",
+      "Demichev V.",
+      "Ralser M."
+    ],
+    "link": "https://www.biorxiv.org/content/10.1101/2025.05.06.652368v1",
+    "year": 2025
+  },
+  {
+    "title": "Methylome-wide association studies and epigenetic biomarker development for 133 mass spectrometry-assessed circulating proteins in 14,671 Generation Scotland participants",
+    "journal": "Genome Biology",
+    "authors": [
+      "Joshua A. Robertson",
+      "Jiri Bajzik",
+      "Spyros Vernardis",
+      "Aleksandra D. Chybowska",
+      "Daniel L. McCartney",
+      "Andrius Grauslys",
+      "Rachel E. Marioni",
+      "Daniel Trejo Banos",
+      "Maike Zwilling",
+      "Yongjun Wang",
+      "Paul Redmond",
+      "Alan F. Wright",
+      "Ian J. Deary",
+      "Riccardo E. Marioni",
+      "Morris A. Swertz",
+      "Emanuele Evangelou",
+      "Eilis Hannon",
+      "Kathryn L. Evans",
+      "Karolina M. Stepniak",
+      "Cathie L. M. Sudlow",
+      "Marzia Del Zompo",
+      "Claudia Langenberg",
+      "Christoph B. Messner",
+      "Riccardo E. Marioni"
+    ],
+    "link": "https://link.springer.com/article/10.1186/s13059-025-03892-0",
+    "year": 2025
+  },
+  {
+    "title": "Distinct Roles of IL-4, IL-13, and IL-22 in Human Skin Barrier Dysfunction and Atopic Dermatitis",
+    "journal": "Allergy",
+    "authors": [
+      "Paolo D'Avino",
+      "Juno Kim",
+      "Manru Li",
+      "Philipp Gessner",
+      "Patrick Westermann",
+      "Yagiz Pat",
+      "Carina Beha",
+      "Claudia Traidl-Hoffmann",
+      "Jeremy Bost",
+      "Nicolas Gaudenzio",
+      "Christoph B. Messner",
+      "Cezmi A. Akdis",
+      "Yasutaka Mitamura"
+    ],
+    "link": "https://onlinelibrary.wiley.com/doi/10.1111/all.70060",
+    "year": 2025
+  },
+  {
+    "title": "Tuft cell IL-17RB restrains IL-25 bioavailability and reveals context-dependent ILC2 hypoproliferation",
+    "journal": "Nature Immunology",
+    "authors": [
+      "Feng X.",
+      "Andersson T.",
+      "Fluechter P.",
+      "Gschwend J.",
+      "Berest I.",
+      "Muff J. L.",
+      "Messner C. B.",
+      "Leinders-Zufall T.",
+      "Zufall F.",
+      "Schneider C."
+    ],
+    "link": "https://www.nature.com/articles/s41590-025-02104-y",
     "year": 2025
   },
   {
@@ -48,7 +169,10 @@
   {
     "title": "A high-throughput workflow for comprehensive glycopeptide mapping",
     "journal": "Nature BME",
-    "authors": ["Christoph B. Messner", "Markus Ralser"],
+    "authors": [
+      "Christoph B. Messner",
+      "Markus Ralser"
+    ],
     "link": "https://www.nature.com/articles/s41551-023-01068-4.epdf?sharing_token=78jFMRywyVe76RXWz7qt_9RgN0jAjWel9jnR3ZoTv0PweTRR8Oi0P8YTEjJyRP23TCao2bapqRyEJbihYcxrtz9frdY2mv1MQphuDI22rfubisvDPpmVAmvt0PqL1uqnsT1vRSzah-tb2d8c0GAkaMMClbZ4LUPHT7MiYHYlT4o%3D",
     "year": 2024
   },
