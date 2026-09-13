@@ -58,5 +58,14 @@
     "telephone": null,
     "isVisiting": true,
     "isAlumni": true
-  }
+  },
+  {
+    "name": "Laura Mecchi",
+    "title": "Post doctoral researcher",
+    "image": "laura.jpeg",
+    "email": "laura.mecchi@siaf.uzh.ch",
+    "telephone": null,
+    "isVisiting": false,
+    "isAlumni": false
+  },
 ]
