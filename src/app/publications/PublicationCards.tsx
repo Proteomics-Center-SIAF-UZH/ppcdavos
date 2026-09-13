@@ -1,13 +1,48 @@
-import type { Member, Publication as PublicationType } from "../content";
-import publicationsData from "../../../content/publications.json";
-import teamData from "../../../content/team.json";
+import Papa from "papaparse";
+import type { Publication as PublicationType } from "../content";
+
+const PUBLICATIONS_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWunO92NxSnFVWEb7e4dV4a8saxxdr8VKfR4rKmKb0s4JCxA6UOEdM0N1zx1tX6VodaGG9COZQ5ngq/pub?gid=692909773&single=true&output=csv";
+
+const TEAM_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWunO92NxSnFVWEb7e4dV4a8saxxdr8VKfR4rKmKb0s4JCxA6UOEdM0N1zx1tX6VodaGG9COZQ5ngq/pub?gid=0&single=true&output=csv";
+
+async function getPublications(): Promise<PublicationType[]> {
+  const res = await fetch(PUBLICATIONS_CSV_URL, { next: { revalidate: 300 } });
+  const csv = await res.text();
+  const { data } = Papa.parse<Record<string, string>>(csv, {
+    header: true,
+    skipEmptyLines: true,
+  });
+  return data.map((row) => ({
+    title: row.title,
+    journal: row.journal,
+    link: row.link,
+    year: parseInt(row.year),
+    authors: row.authors.split(";").map((a) => a.trim()),
+    abstract: row.abstract || undefined,
+  }));
+}
+
+async function getTeamMemberNames(): Promise<string[]> {
+  const res = await fetch(TEAM_CSV_URL, { next: { revalidate: 300 } });
+  const csv = await res.text();
+  const { data } = Papa.parse<Record<string, string>>(csv, {
+    header: true,
+    skipEmptyLines: true,
+  });
+  return data.flatMap((row) => {
+    const names = [row.name];
+    if (row.otherNames) names.push(...row.otherNames.split(";").map((s) => s.trim()));
+    return names;
+  });
+}
 
 const Publication = ({
   title,
   journal,
   link,
   authors,
-  abstract,
   year,
   teamMemberNames,
 }: {
@@ -35,7 +70,6 @@ const Publication = ({
           const isTeamMember = teamMemberNames.includes(author);
           const isLast = index === authors.length - 1;
           const isSecondLast = index === authors.length - 2;
-
           return (
             <span key={author}>
               {isTeamMember ? <b>{author}</b> : author}
@@ -75,11 +109,10 @@ const PublicationInYear = ({
   );
 };
 
-export const PublicationCards = () => {
-  const publications = publicationsData as PublicationType[];
-  const teamMemberNames = (teamData as Member[]).flatMap((member) => [
-    member.name,
-    ...(member.otherNames || []),
+export const PublicationCards = async () => {
+  const [publications, teamMemberNames] = await Promise.all([
+    getPublications(),
+    getTeamMemberNames(),
   ]);
 
   const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
