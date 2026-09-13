@@ -26,7 +26,7 @@ async function getTeamMembers(): Promise<Member[]> {
     title: row.title as Title,
     image: row.image,
     email: row.email,
-    telephone: row.telephone || undefined,
+    telephone: row.telephone && !row.telephone.startsWith("#") ? row.telephone : undefined,
     isAlumni: row.isAlumni === "TRUE" || row.isAlumni === "true",
     isVisiting: row.isVisiting === "TRUE" || row.isVisiting === "true",
   }));
