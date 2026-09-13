@@ -1,12 +1,13 @@
 import Papa from "papaparse";
 import { Member, Title } from "../content/types";
-import teamFallback from "../../../content/team.json";
 import { MemberTable } from "./MemberTable";
 import { AlumniList } from "./AlumniList";
 
+const TEAM_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWunO92NxSnFVWEb7e4dV4a8saxxdr8VKfR4rKmKb0s4JCxA6UOEdM0N1zx1tX6VodaGG9COZQ5ngq/pub?output=csv";
+
 async function getTeamMembers(): Promise<Member[]> {
-  const url = process.env.GOOGLE_SHEETS_TEAM_CSV_URL;
-  if (!url) return teamFallback as Member[];
+  const url = process.env.GOOGLE_SHEETS_TEAM_CSV_URL ?? TEAM_CSV_URL;
 
   const res = await fetch(url, { next: { revalidate: 3600 } });
   const csv = await res.text();
