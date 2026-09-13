@@ -1,12 +1,40 @@
+import Papa from "papaparse";
 import { Member, Title } from "../content/types";
-import teamData from "../../../content/team.json";
+import teamFallback from "../../../content/team.json";
 import { MemberTable } from "./MemberTable";
 import { AlumniList } from "./AlumniList";
 
-export default function Team() {
-  const teamMembers = teamData as Member[];
+async function getTeamMembers(): Promise<Member[]> {
+  const url = process.env.GOOGLE_SHEETS_TEAM_CSV_URL;
+  if (!url) return teamFallback as Member[];
 
-  const activeMembers = teamMembers.filter((v) => !v.isAlumni)
+  const res = await fetch(url, { next: { revalidate: 3600 } });
+  const csv = await res.text();
+
+  const { data } = Papa.parse<Record<string, string>>(csv, {
+    header: true,
+    skipEmptyLines: true,
+  });
+
+  return data.map((row) => ({
+    name: row.name,
+    otherNames: row.otherNames
+      ? row.otherNames.split(";").map((s) => s.trim())
+      : undefined,
+    prefix: row.prefix || undefined,
+    title: row.title as Title,
+    image: row.image,
+    email: row.email,
+    telephone: row.telephone || undefined,
+    isAlumni: row.isAlumni === "TRUE" || row.isAlumni === "true",
+    isVisiting: row.isVisiting === "TRUE" || row.isVisiting === "true",
+  }));
+}
+
+export default async function Team() {
+  const teamMembers = await getTeamMembers();
+
+  const activeMembers = teamMembers.filter((v) => !v.isAlumni);
 
   const professors = activeMembers.filter((v) => v.title === Title.PROFESSOR);
   const labManagers = activeMembers.filter((v) => v.title === Title.LAB_MAMAGER);
@@ -43,8 +71,7 @@ export default function Team() {
       </div>
       {alumni.length > 0 && (
         <div className="mb-16 space-y-4">
-          <h3 className="text-2xl">{alumni.length === 1 ? "Alumnus/Alumna" : "Alumni"}
-</h3>
+          <h3 className="text-2xl">{alumni.length === 1 ? "Alumnus/Alumna" : "Alumni"}</h3>
           <AlumniList members={alumni} />
         </div>
       )}
