@@ -55,7 +55,7 @@ const Publication = ({
   teamMemberNames: string[];
 }) => {
   return (
-    <div className="border-b p-6 my-8 space-y-2">
+    <div className="border-b p-6 my-6 space-y-2 hover:bg-gray-50 rounded-lg transition-colors">
       <div className="flex flex-wrap justify-between">
         <a
           href={link}
@@ -96,7 +96,7 @@ const PublicationInYear = ({
 }) => {
   return (
     <div className="space-y-10">
-      <h3 className="text-xl">{year}</h3>
+      <h3 className="text-xl font-semibold pl-3 border-l-4 border-sky-950">{year}</h3>
       {publications.map((publication, i) => (
         <Publication
           {...publication}

@@ -1,27 +1,35 @@
-const LinkItem = ({ name, href }: { name: string; href: string }) => (
-  <a
-    href={href}
-    className="hover:bg-sky-50 hover:rounded-md hover:text-sky-950 transition-all px-3 inline-flex items-center"
-  >
-    {name}
-  </a>
-);
+"use client";
+
+import { usePathname } from "next/navigation";
+
+const LinkItem = ({ name, href }: { name: string; href: string }) => {
+  const pathname = usePathname();
+  const isActive =
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  return (
+    <a
+      href={href}
+      className={`transition-all px-3 py-1 inline-flex items-center border-b-2 rounded-sm ${
+        isActive
+          ? "border-white font-semibold"
+          : "border-transparent hover:bg-white/10"
+      }`}
+    >
+      {name}
+    </a>
+  );
+};
 
 const Navigation = () => {
-  const shouldDisplayLogo = false;
   return (
-    <div className="flex flex-col sm:flex-row sm:flex-nowrap justify-between items-end px-16 py-8 bg-sky-950 text-white">
-      <a href="/" className="flex items-center">
-        <h1 className="text-xl font-bold flex items-end">
-          {shouldDisplayLogo && <img
-            src={'/logos/White bg + logo 5k.png'}
-            alt="Precision Proteomics Center Davos logo"
-            className="w-14 h-auto mb-1"
-          />}
-          <p className="px-2">Precision Proteomics Center Davos</p>
+    <div className="flex flex-col sm:flex-row sm:flex-nowrap justify-between items-center px-16 py-6 bg-sky-950 text-white shadow-md">
+      <a href="/" className="flex items-center mb-4 sm:mb-0">
+        <h1 className="text-xl font-bold tracking-tight">
+          Precision Proteomics Center Davos
         </h1>
       </a>
-      <div className="flex flex-col sm:flex-row sm:flex-nowrap items-end">
+      <div className="flex flex-row flex-wrap justify-center sm:justify-end items-center gap-1">
         <LinkItem href="/aboutUs" name="About us" />
         <LinkItem href="/research" name="Research" />
         <LinkItem href="/team" name="Team" />
