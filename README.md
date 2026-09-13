@@ -1,59 +1,64 @@
 # Precision Proteomics Center Davos Website
 
 ## About This Site
-Welcome to the official website of the **Precision Proteomics Center Davos**.  
 
-The website is built using **React**, **TypeScript**, and **Next.js**, and exports to plain static HTML — no server runtime required.
+The official website of the **Precision Proteomics Center Davos**, built with **Next.js**, **React**, and **TypeScript**, and hosted on **Vercel**.
 
-- **Production:** [https://admin.whp.uzh.ch/](https://admin.whp.uzh.ch/)  
-- **Testing:** [https://admin.whptest.uzh.ch/](https://admin.whptest.uzh.ch/)  
+- **Production:** [https://precisionproteomics.uzh.ch](https://precisionproteomics.uzh.ch)
+- **Vercel dashboard:** [vercel.com](https://vercel.com) (log in with your Vercel account)
+
+Every push to the `main` branch automatically triggers a new deployment on Vercel. Changes go live within ~1 minute.
 
 ---
 
-## Editing Content (Team, Publications, Research, Positions)
+## Editing Content
 
-All editable content lives in the **`/content/`** folder at the root of this repository. Each file is plain JSON — you can edit it directly in GitHub's web editor or in any text editor.
+All content is managed in a **Google Sheet** — no coding required.
 
-| File | What it controls |
+[Open the Google Sheet →](https://docs.google.com/spreadsheets/d/e/2PACX-1vQWunO92NxSnFVWEb7e4dV4a8saxxdr8VKfR4rKmKb0s4JCxA6UOEdM0N1zx1tX6VodaGG9COZQ5ngq/pubhtml)
+
+| Tab | What it controls |
 |---|---|
-| `content/team.json` | Team members and alumni |
-| `content/publications.json` | Publications list |
-| `content/research.json` | Research area descriptions and images |
-| `content/openPositions.json` | Open positions (set `"isActive": true` to show a position) |
+| `team` | Team members and alumni — set `isAlumni` to `TRUE` to move someone to the alumni section |
+| `publications` | Publications list — authors are semicolon-separated |
+| `research` | Research area descriptions — text paragraphs separated by `\|\|\|` |
+| `openPositions` | Open positions — set `isActive` to `TRUE` to show a position on the site |
 
-After editing a file, commit your changes and run a build (see below) to regenerate the site.
+Changes to the sheet appear on the site within **5 minutes** automatically. No redeploy needed.
 
-> **Tip:** Always test on the **testing instance** before deploying to production. If changes don't appear immediately, try opening the site in **Incognito mode**.
-
----
-
-## Running the App Locally
-
-1. Install dependencies: `npm install`
-2. Start the development server: `npm run dev` (available at `localhost:3000`)
+> **Tip:** If you need changes to appear immediately, go to the Vercel dashboard → Deployments → `...` → **Redeploy**.
 
 ---
 
-## Building and Deploying
+## Adding or Updating Member Photos
 
-### Build
+Photos are stored in `public/images/members/` in this repository. The filename must match the `image` field in the Google Sheet (e.g. `christoph.jpeg`).
+
+To add a photo:
+1. Go to the [members folder on GitHub](https://github.com/Proteomics-Center-SIAF-UZH/ppcdavos/tree/main/public/images/members)
+2. Click **Add file** → **Upload files**
+3. Upload the photo and commit — Vercel will redeploy automatically
+
+Recommended: square crop, at least 200×200px, JPEG format.
+
+---
+
+## Running Locally (for developers)
+
 ```bash
-npm run build
+npm install
+npm run dev       # available at localhost:3000
 ```
-This generates static HTML in `/out/` and copies it to `/out_deploy/`.
 
-### Deploy
-1. Navigate to the `/out_deploy/` folder, commit all changes, and push to the [ppcdavos_output](https://github.com/Proteomics-Center-SIAF-UZH/ppcdavos_output) repository.
-2. In Plesk, navigate to the Git section, then click **Pull now** and **Deploy now**.
+```bash
+npm run build     # production build
+```
 
 ---
 
 ## How It Works
 
-`npm run build` runs `next build`, which reads all content from `content/*.json` at build time and produces fully static HTML pages in `/out/`. No server-side runtime is needed to serve the site.
-
-- **Why copy to `/out_deploy/`?**  
-  The `/out/` folder is fully overwritten on every build. By copying files to `/out_deploy/`, we preserve the `.git` metadata and maintain the connection with the Git repository.
-
-- **Deployment flow:**  
-  `/out_deploy/` is linked to the `ppcdavos_output` repository, which is connected to Plesk. Clicking **Pull now** on Plesk fetches the latest changes and updates the hosted site automatically.
+- **Hosting:** Vercel — connected to this GitHub repo, auto-deploys on every push to `main`
+- **Content:** Fetched from Google Sheets at request time and cached for 5 minutes (ISR)
+- **Domain:** `precisionproteomics.uzh.ch` — DNS managed by UZH IT (Claudio Rhyner)
+- **TLS:** Automatic via Vercel + Let's Encrypt
