@@ -9,7 +9,7 @@ const TEAM_CSV_URL =
 async function getTeamMembers(): Promise<Member[]> {
   const url = process.env.GOOGLE_SHEETS_TEAM_CSV_URL ?? TEAM_CSV_URL;
 
-  const res = await fetch(url, { next: { revalidate: 3600 } });
+  const res = await fetch(url, { next: { revalidate: 300 } });
   const csv = await res.text();
 
   const { data } = Papa.parse<Record<string, string>>(csv, {
