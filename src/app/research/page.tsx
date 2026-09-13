@@ -1,5 +1,5 @@
 import { ResearchItem } from "../content/types";
-import researchData from "../../../public/data/research.json";
+import researchData from "../../../content/research.json";
 import { TextWithImageSection } from "../components/section/TextWithImageSection";
 import { TextWithoutImageSection } from "../components/section/TextWithoutImageSection";
 

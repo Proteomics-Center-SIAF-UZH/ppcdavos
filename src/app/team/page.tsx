@@ -1,21 +1,10 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Member, Title } from "../content/types";
+import teamData from "../../../content/team.json";
 import { MemberTable } from "./MemberTable";
 import { AlumniList } from "./AlumniList";
 
 export default function Team() {
-  const [teamMembers, setTeamMembers] = useState<Member[]>([]);
-
-  useEffect(() => {
-    fetch("/data/team.json")
-      .then((res) => res.json())
-      .then(setTeamMembers)
-      .catch(console.error);
-  }, []);
-
-  if (!teamMembers) return <div>Loading...</div>;
+  const teamMembers = teamData as Member[];
 
   const activeMembers = teamMembers.filter((v) => !v.isAlumni)
 

@@ -1,7 +1,5 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { OpenPosition } from "../content/types";
+import openPositionsData from "../../../content/openPositions.json";
 import { OpenPositionCard } from "./OpenPositionCard";
 
 const NoOpenPosition = () =>
@@ -15,17 +13,7 @@ const NoOpenPosition = () =>
   </div>
 
 export default function OpenPositions() {
-  const [openPositions, setOpenPositions] = useState<OpenPosition[]>([]);
-
-  useEffect(() => {
-    fetch("/data/openPositions.json")
-      .then((res) => res.json())
-      .then(setOpenPositions)
-      .catch(console.error);
-  }, []);
-
-  if (!openPositions) return <div>Loading...</div>;
-
+  const openPositions = openPositionsData as OpenPosition[];
   const activeOpenPositions = openPositions.filter((v) => v.isActive);
   const hasNoOpenPositions = activeOpenPositions.length === 0;
 

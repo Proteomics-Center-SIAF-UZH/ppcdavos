@@ -1,7 +1,6 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import type { Member, Publication as PublicationType } from "../content";
+import publicationsData from "../../../content/publications.json";
+import teamData from "../../../content/team.json";
 
 const Publication = ({
   title,
@@ -77,28 +76,13 @@ const PublicationInYear = ({
 };
 
 export const PublicationCards = () => {
-  const [publications, setPublications] = useState<PublicationType[]>([]);
-  const [teamMemberNames, setTeamMemberNames] = useState<string[]>([]);
+  const publications = publicationsData as PublicationType[];
+  const teamMemberNames = (teamData as Member[]).flatMap((member) => [
+    member.name,
+    ...(member.otherNames || []),
+  ]);
 
-  useEffect(() => {
-    fetch("/data/publications.json")
-      .then((res) => res.json())
-      .then(setPublications)
-      .catch(console.error);
-
-    fetch("/data/team.json")
-      .then((res) => res.json())
-      .then((res: Member[]) => {
-        const allNames = res.flatMap((member) => [
-          member.name,
-          ...(member.otherNames || []),
-        ]);
-        setTeamMemberNames(allNames);
-      })
-      .catch(console.error);
-  }, []);
-
-  const sortedPublications = publications.sort((a, b) => b.year - a.year);
+  const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
 
   const publicationsByYear = sortedPublications.reduce((res, publication) => {
     const publicationYear = publication.year;
