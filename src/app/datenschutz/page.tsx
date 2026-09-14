@@ -32,9 +32,6 @@ export default async function Datenschutz() {
   return (
     <div className="max-w-[65ch] space-y-4">
       <PageHeader title="Datenschutzerklärung" />
-      <p className="text-sm text-gray-400 italic">
-        Privacy Policy — last reviewed by UZH legal before publication.
-      </p>
       <div className="space-y-3 text-slate-700 leading-relaxed">
         {paragraphs.map((p, i) => (
           <div key={i}>{renderContent(p)}</div>
