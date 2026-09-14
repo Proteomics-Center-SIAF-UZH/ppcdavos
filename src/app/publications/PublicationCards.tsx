@@ -1,6 +1,7 @@
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../convex/_generated/api";
 import type { Publication as PublicationType } from "../content";
+import { FadeIn } from "../components/FadeIn";
 
 const Publication = ({
   title, journal, link, authors, year, teamMemberNames,
@@ -62,13 +63,14 @@ export const PublicationCards = async () => {
 
   return (
     <div className="space-y-16">
-      {[...byYear.keys()].map((year) => (
-        <PublicationInYear
-          year={year}
-          publications={byYear.get(year)!}
-          key={`year-${year}`}
-          teamMemberNames={teamMemberNames}
-        />
+      {[...byYear.keys()].map((year, i) => (
+        <FadeIn key={`year-${year}`} delay={i * 80}>
+          <PublicationInYear
+            year={year}
+            publications={byYear.get(year)!}
+            teamMemberNames={teamMemberNames}
+          />
+        </FadeIn>
       ))}
     </div>
   );

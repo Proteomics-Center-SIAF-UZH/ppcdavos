@@ -3,6 +3,7 @@ import { api } from "../../../convex/_generated/api";
 import { TextWithImageSection } from "../components/section/TextWithImageSection";
 import { TextWithoutImageSection } from "../components/section/TextWithoutImageSection";
 import { PageHeader } from "../components/PageHeader";
+import { FadeIn } from "../components/FadeIn";
 import { parseLinks } from "../utils/parseLinks";
 
 export const revalidate = 60;
@@ -38,15 +39,15 @@ export default async function Research() {
           ) : null;
 
           return imageSrc && imageAlt ? (
-            <div key={index}>
+            <FadeIn key={index}>
               {titleEl}
               <TextWithImageSection text={textContent} imgSrc={imageSrc} imgAlt={imageAlt} />
-            </div>
+            </FadeIn>
           ) : (
-            <div key={index}>
+            <FadeIn key={index}>
               {titleEl}
               <TextWithoutImageSection text={textContent} />
-            </div>
+            </FadeIn>
           );
         })}
       </div>

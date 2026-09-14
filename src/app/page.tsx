@@ -1,6 +1,7 @@
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../convex/_generated/api";
 import { parseLinks } from "./utils/parseLinks";
+import { FadeIn } from "./components/FadeIn";
 
 export const revalidate = 60;
 
@@ -18,25 +19,31 @@ export default async function Home() {
 
   return (
     <div className="space-y-10">
-      <img
-        src={imageUrl}
-        alt={imageAlt}
-        className="w-full h-72 object-cover rounded-2xl shadow-md"
-      />
+      <FadeIn>
+        <img
+          src={imageUrl}
+          alt={imageAlt}
+          className="w-full h-72 object-cover rounded-2xl shadow-md"
+        />
+      </FadeIn>
 
-      <div className="space-y-3">
-        <h1 className="text-4xl font-bold text-sky-950 leading-tight tracking-tight">
-          Precision Proteomics<br />Center Davos
-        </h1>
-        <p className="text-base font-medium text-sky-700 uppercase tracking-widest">
-          University of Zurich · SIAF
-        </p>
-        <div className="w-12 h-1 bg-sky-950 rounded-full" />
-      </div>
+      <FadeIn delay={150}>
+        <div className="space-y-3">
+          <h1 className="text-4xl font-bold text-sky-950 leading-tight tracking-tight">
+            Precision Proteomics<br />Center Davos
+          </h1>
+          <p className="text-base font-medium text-sky-700 uppercase tracking-widest">
+            University of Zurich · SIAF
+          </p>
+          <div className="w-12 h-1 bg-sky-950 rounded-full" />
+        </div>
+      </FadeIn>
 
-      <div className="text-slate-700 space-y-4 max-w-3xl leading-relaxed">
-        {paragraphs.map((p, i) => <p key={i}>{parseLinks(p)}</p>)}
-      </div>
+      <FadeIn delay={300}>
+        <div className="text-slate-700 space-y-4 max-w-3xl leading-relaxed">
+          {paragraphs.map((p, i) => <p key={i}>{parseLinks(p)}</p>)}
+        </div>
+      </FadeIn>
     </div>
   );
 }
