@@ -23,7 +23,7 @@ export default function RootLayout({
         <ConvexClientProvider>
           <div className="flex flex-col min-h-screen justify-between">
             <Navigation />
-            <div className="w-full px-16 sm:px-32 md:px-48 lg:px-64 py-16">
+            <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 py-12">
               {children}
             </div>
             <Footer />

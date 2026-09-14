@@ -2,6 +2,7 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../convex/_generated/api";
 import { TextWithImageSection } from "../components/section/TextWithImageSection";
 import { TextWithoutImageSection } from "../components/section/TextWithoutImageSection";
+import { PageHeader } from "../components/PageHeader";
 
 export const revalidate = 60;
 
@@ -27,7 +28,7 @@ export default async function Research() {
 
   return (
     <div className="gap-y-8">
-      <h2 className="text-2xl mb-6">Research</h2>
+      <PageHeader title="Research" />
       <div className="space-y-12">
         {research.map(({ title, textBlocks, imageSrc, imageAlt }, index) => {
           const textContent = (

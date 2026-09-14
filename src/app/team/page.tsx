@@ -3,6 +3,7 @@ import { api } from "../../../convex/_generated/api";
 import { Title } from "../content/types";
 import { MemberTable } from "./MemberTable";
 import { AlumniList } from "./AlumniList";
+import { PageHeader } from "../components/PageHeader";
 
 export const revalidate = 60;
 
@@ -20,6 +21,7 @@ export default async function Team() {
 
   return (
     <div className="space-y-16">
+      <PageHeader title="Team" />
       <div className="mb-16 space-y-6">
         <h3 className="text-2xl">Group lead{professors.length > 1 ? "s" : ""}</h3>
         <MemberTable members={professors} />

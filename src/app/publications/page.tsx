@@ -1,10 +1,11 @@
 import React from "react";
 import { PublicationCards } from "./PublicationCards";
+import { PageHeader } from "../components/PageHeader";
 
 const Publications = async () => {
   return (
     <div>
-      <h2 className="text-2xl mb-16">Publications</h2>
+      <PageHeader title="Publications" />
       <PublicationCards />
     </div>
   );

@@ -6,9 +6,20 @@ const Footer = () => (
     <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
       <div className="md:flex md:justify-between">
         <AddressAndContact />
-        <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
           <RelevantWebsites
-            title="Relevant websites"
+            title="Pages"
+            items={[
+              { name: "About us", link: "/aboutUs" },
+              { name: "Research", link: "/research" },
+              { name: "Team", link: "/team" },
+              { name: "Publications", link: "/publications" },
+              { name: "Services", link: "/services" },
+              { name: "Open Positions", link: "/openPositions" },
+            ]}
+          />
+          <RelevantWebsites
+            title="Links"
             items={[
               { name: "University of Zurich", link: "https://uzh.ch/de.html" },
               { name: "SIAF", link: "https://www.siaf.uzh.ch/" },
@@ -18,6 +29,9 @@ const Footer = () => (
       </div>
       <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
+        <span className="text-sm text-gray-400">
+          © {new Date().getFullYear()} Precision Proteomics Center Davos
+        </span>
         <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
           <a
             href="https://twitter.com/i/flow/login?redirect_after_login=%2Fchr_messner"

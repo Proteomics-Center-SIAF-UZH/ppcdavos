@@ -24,10 +24,13 @@ const LinkItem = ({ name, href }: { name: string; href: string }) => {
 const Navigation = () => {
   return (
     <div className="flex flex-col sm:flex-row sm:flex-nowrap justify-between items-center px-16 py-6 bg-sky-950 text-white shadow-md">
-      <a href="/" className="flex items-center mb-4 sm:mb-0">
-        <h1 className="text-xl font-bold tracking-tight">
+      <a href="/" className="flex flex-col mb-4 sm:mb-0">
+        <h1 className="text-xl font-bold tracking-tight leading-tight">
           Precision Proteomics Center Davos
         </h1>
+        <span className="text-xs text-sky-300 tracking-wide mt-0.5">
+          University of Zurich · SIAF
+        </span>
       </a>
       <div className="flex flex-row flex-wrap justify-center sm:justify-end items-center gap-1">
         <LinkItem href="/aboutUs" name="About us" />
