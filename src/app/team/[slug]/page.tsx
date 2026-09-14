@@ -19,17 +19,15 @@ export default async function MemberPage({ params }: { params: { slug: string } 
       </a>
 
       <div className="flex flex-col sm:flex-row gap-8 items-start">
-        <div className="flex-shrink-0">
-          {member.imageUrl ? (
-            <img
-              src={member.imageUrl}
-              alt={member.name}
-              className="w-36 h-36 rounded-full object-cover shadow"
+        <div className="relative w-36 h-36 flex-shrink-0">
+          <div className="w-36 h-36 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-4xl font-semibold shadow">
+            {member.name.split(" ").slice(0, 2).map((w: string) => w[0]).join("")}
+          </div>
+          {member.imageUrl && (
+            <div
+              className="absolute inset-0 rounded-full bg-cover bg-center shadow"
+              style={{ backgroundImage: `url(${member.imageUrl})` }}
             />
-          ) : (
-            <div className="w-36 h-36 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-4xl font-semibold shadow">
-              {member.name.split(" ").slice(0, 2).map((w: string) => w[0]).join("")}
-            </div>
           )}
         </div>
 

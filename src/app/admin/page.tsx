@@ -219,7 +219,14 @@ function TeamAdmin({ token }: { token: string }) {
             {members.map((m) => (
               <tr key={m._id} className="border-t hover:bg-gray-50">
                 <td className="pl-4 py-3 font-medium flex items-center gap-2">
-                  {m.imageUrl && <img src={m.imageUrl} className="w-7 h-7 rounded-full object-cover" />}
+                  <div className="relative w-7 h-7 flex-shrink-0">
+                    <div className="w-7 h-7 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-xs font-semibold">
+                      {m.name.split(" ").slice(0, 2).map((w: string) => w[0]).join("")}
+                    </div>
+                    {m.imageUrl && (
+                      <div className="absolute inset-0 rounded-full bg-cover bg-center" style={{ backgroundImage: `url(${m.imageUrl})` }} />
+                    )}
+                  </div>
                   {m.name} {m.isAlumni && <span className="text-xs bg-gray-100 px-1 rounded">Alumni</span>}
                 </td>
                 <td className="pl-4 py-3 text-gray-500">{m.title}</td>
