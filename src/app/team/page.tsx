@@ -1,52 +1,22 @@
-import Papa from "papaparse";
-import { Member, Title } from "../content/types";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../convex/_generated/api";
+import { Title } from "../content/types";
 import { MemberTable } from "./MemberTable";
 import { AlumniList } from "./AlumniList";
 
-const TEAM_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWunO92NxSnFVWEb7e4dV4a8saxxdr8VKfR4rKmKb0s4JCxA6UOEdM0N1zx1tX6VodaGG9COZQ5ngq/pub?output=csv";
-
-async function getTeamMembers(): Promise<Member[]> {
-  const url = process.env.GOOGLE_SHEETS_TEAM_CSV_URL ?? TEAM_CSV_URL;
-
-  const res = await fetch(url, { next: { revalidate: 300 } });
-  const csv = await res.text();
-
-  const { data } = Papa.parse<Record<string, string>>(csv, {
-    header: true,
-    skipEmptyLines: true,
-  });
-
-  return data.map((row) => ({
-    name: row.name,
-    otherNames: row.otherNames
-      ? row.otherNames.split(";").map((s) => s.trim())
-      : undefined,
-    prefix: row.prefix || undefined,
-    title: row.title as Title,
-    image: row.image,
-    email: row.email,
-    telephone: row.telephone && !row.telephone.startsWith("#") ? row.telephone : undefined,
-    isAlumni: row.isAlumni === "TRUE" || row.isAlumni === "true",
-    isVisiting: row.isVisiting === "TRUE" || row.isVisiting === "true",
-  }));
-}
+export const revalidate = 60;
 
 export default async function Team() {
-  const teamMembers = await getTeamMembers();
+  const teamMembers = await fetchQuery(api.team.list);
 
-  const activeMembers = teamMembers.filter((v) => !v.isAlumni);
+  const active = teamMembers.filter((m) => !m.isAlumni);
+  const alumni = teamMembers.filter((m) => m.isAlumni);
 
-  const professors = activeMembers.filter((v) => v.title === Title.PROFESSOR);
-  const labManagers = activeMembers.filter((v) => v.title === Title.LAB_MAMAGER);
-  const doctoralCandidates = activeMembers.filter(
-    (v) => v.title === Title.DOCTORAL_CANDIDATE,
-  );
-  const postDocs = activeMembers.filter((v) => v.title === Title.POST_DOC);
-  const labTechnicians = activeMembers.filter(
-    (v) => v.title === Title.LAB_TECHNICIAN,
-  );
-  const alumni = teamMembers.filter((v) => v.isAlumni === true);
+  const professors = active.filter((m) => m.title === Title.PROFESSOR);
+  const labManagers = active.filter((m) => m.title === Title.LAB_MAMAGER);
+  const labTechnicians = active.filter((m) => m.title === Title.LAB_TECHNICIAN);
+  const postDocs = active.filter((m) => m.title === Title.POST_DOC);
+  const doctoralCandidates = active.filter((m) => m.title === Title.DOCTORAL_CANDIDATE);
 
   return (
     <div className="space-y-16">
