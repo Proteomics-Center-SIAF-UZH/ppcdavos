@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
+// siteContent imported via api.siteContent.*
 
 // ── Auth ───────────────────────────────────────────────────────────────────────
 
@@ -530,9 +531,125 @@ function OpenPositionsAdmin({ token }: { token: string }) {
   );
 }
 
+// ── Pages ──────────────────────────────────────────────────────────────────────
+
+const PAGE_KEYS = [
+  { key: "home", label: "Home", hasImage: true },
+  { key: "aboutUs", label: "About Us", hasImage: true },
+  { key: "services", label: "Services", hasImage: false },
+] as const;
+
+type PageKey = typeof PAGE_KEYS[number]["key"];
+
+function PageEditor({ pageKey, label, hasImage, token }: { pageKey: PageKey; label: string; hasImage: boolean; token: string }) {
+  const content = useQuery(api.siteContent.getByKey, { key: pageKey });
+  const upsert = useMutation(api.siteContent.upsert);
+  const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
+
+  const [paragraphs, setParagraphs] = useState<string[]>([""]);
+  const [imageStorageId, setImageStorageId] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (content) {
+      setParagraphs(content.paragraphs.length ? content.paragraphs : [""]);
+      setImageStorageId(content.image ?? "");
+      setImageAlt(content.imageAlt ?? "");
+    }
+  }, [content]);
+
+  const handleImageUpload = async (file: File) => {
+    setUploading(true);
+    const uploadUrl = await generateUploadUrl({ token });
+    const res = await fetch(uploadUrl, { method: "POST", headers: { "Content-Type": file.type }, body: file });
+    const { storageId } = await res.json();
+    setImageStorageId(storageId);
+    setUploading(false);
+  };
+
+  const save = async () => {
+    await upsert({
+      token, key: pageKey,
+      paragraphs: paragraphs.filter(p => p.trim()),
+      image: imageStorageId || undefined,
+      imageAlt: imageAlt || undefined,
+    });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="space-y-3">
+        {paragraphs.map((p, i) => (
+          <div key={i} className="flex gap-2">
+            <textarea
+              className={`${input} flex-1 h-28`}
+              value={p}
+              onChange={e => { const next = [...paragraphs]; next[i] = e.target.value; setParagraphs(next); }}
+              placeholder="Paragraph text. Use [link text](url) for links."
+            />
+            <button
+              className="text-red-400 hover:text-red-600 text-lg flex-shrink-0"
+              onClick={() => setParagraphs(paragraphs.filter((_, j) => j !== i))}
+            >×</button>
+          </div>
+        ))}
+        <button className={btnSecondary} onClick={() => setParagraphs([...paragraphs, ""])}>+ Add paragraph</button>
+      </div>
+
+      {hasImage && (
+        <div className="grid grid-cols-2 gap-4">
+          <Field label="Image">
+            <input type="file" accept="image/*" className="text-sm" onChange={e => e.target.files?.[0] && handleImageUpload(e.target.files[0])} />
+            {uploading && <p className="text-xs text-gray-500 mt-1">Uploading…</p>}
+            {imageStorageId && !uploading && <p className="text-xs text-green-600 mt-1">✓ Image set</p>}
+          </Field>
+          <Field label="Image alt text">
+            <input className={input} value={imageAlt} onChange={e => setImageAlt(e.target.value)} />
+          </Field>
+        </div>
+      )}
+
+      <div className="flex items-center gap-3">
+        <button className={btnPrimary} onClick={save}>Save</button>
+        {saved && <span className="text-sm text-green-600">Saved!</span>}
+      </div>
+      <p className="text-xs text-gray-400">Use [link text](url) syntax for hyperlinks in paragraphs.</p>
+    </div>
+  );
+}
+
+function PagesAdmin({ token }: { token: string }) {
+  const [activePage, setActivePage] = useState<PageKey>("home");
+  const current = PAGE_KEYS.find(p => p.key === activePage)!;
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold">Page Content</h2>
+      <div className="flex gap-2 border-b">
+        {PAGE_KEYS.map(({ key, label }) => (
+          <button
+            key={key}
+            onClick={() => setActivePage(key)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
+              activePage === key ? "border-sky-950 text-sky-950" : "border-transparent text-gray-500 hover:text-gray-900"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <PageEditor key={activePage} pageKey={activePage} label={current.label} hasImage={current.hasImage} token={token} />
+    </div>
+  );
+}
+
 // ── Main admin page ────────────────────────────────────────────────────────────
 
-const TABS = ["Team", "Publications", "Research", "Open Positions"] as const;
+const TABS = ["Team", "Publications", "Research", "Open Positions", "Pages"] as const;
 type Tab = typeof TABS[number];
 
 export default function AdminPage() {
@@ -585,6 +702,7 @@ export default function AdminPage() {
         {tab === "Publications" && <PublicationsAdmin token={token} />}
         {tab === "Research" && <ResearchAdmin token={token} />}
         {tab === "Open Positions" && <OpenPositionsAdmin token={token} />}
+        {tab === "Pages" && <PagesAdmin token={token} />}
       </div>
     </div>
   );

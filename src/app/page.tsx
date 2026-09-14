@@ -1,9 +1,26 @@
-export default function Home() {
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../convex/_generated/api";
+import { parseLinks } from "./utils/parseLinks";
+
+export const revalidate = 60;
+
+const DEFAULT_PARAGRAPHS = [
+  "The Precision Proteomics Center is part of the [Swiss Institute of Allergy and Asthma Research (SIAF)](https://www.siaf.uzh.ch/) and associated with the University of Zurich. Based on the medicine campus in Davos and equipped with high-end instrumentation (Thermo Orbitrap Eclipse), we develop and apply cutting-edge mass spectrometry technologies for the proteome analysis of clinical samples — body fluids, tissues, and cells.",
+  "With the decision of the Government of the Canton of Graubünden in 2020, SIAF was commissioned to establish and operate the Proteomics Center Davos as a Leading House, recognizing proteomics as a key technology in life sciences. Since 2022, Prof. Christoph Messner has led the center while holding a professorship at the University of Zurich.",
+  "We aim to identify new biomarkers and disease mechanisms that contribute to the next generation of personalized treatments, with a particular focus on allergies, skin diseases, and oncology.",
+];
+
+export default async function Home() {
+  const content = await fetchQuery(api.siteContent.getByKey, { key: "home" }).catch(() => null);
+  const paragraphs = content?.paragraphs?.length ? content.paragraphs : DEFAULT_PARAGRAPHS;
+  const imageUrl = (content as any)?.imageUrl ?? "/images/siaf_birdview.png";
+  const imageAlt = content?.imageAlt ?? "SIAF campus in Davos";
+
   return (
     <div className="space-y-10">
       <img
-        src="/images/siaf_birdview.png"
-        alt="SIAF campus in Davos"
+        src={imageUrl}
+        alt={imageAlt}
         className="w-full h-72 object-cover rounded-2xl shadow-md"
       />
 
@@ -18,19 +35,7 @@ export default function Home() {
       </div>
 
       <div className="text-slate-700 space-y-4 max-w-3xl leading-relaxed">
-        <p>
-          The Precision Proteomics Center is part of{" "}
-          <a href="https://www.siaf.uzh.ch/" target="_blank" className="text-sky-700 hover:underline">
-            the Swiss Institute of Allergy and Asthma Research (SIAF)
-          </a>{" "}
-          and associated with the University of Zurich. Based on the medicine campus in Davos and equipped with high-end instrumentation (Thermo Orbitrap Eclipse), we develop and apply cutting-edge mass spectrometry technologies for the proteome analysis of clinical samples — body fluids, tissues, and cells.
-        </p>
-        <p>
-          With the decision of the Government of the Canton of Graubünden in 2020, SIAF was commissioned to establish and operate the Proteomics Center Davos as a Leading House, recognizing proteomics as a key technology in life sciences. Since 2022, Prof. Christoph Messner has led the center while holding a professorship at the University of Zurich.
-        </p>
-        <p>
-          We aim to identify new biomarkers and disease mechanisms that contribute to the next generation of personalized treatments, with a particular focus on allergies, skin diseases, and oncology.
-        </p>
+        {paragraphs.map((p, i) => <p key={i}>{parseLinks(p)}</p>)}
       </div>
     </div>
   );

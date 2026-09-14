@@ -12,6 +12,7 @@ import type * as auth from "../auth.js";
 import type * as openPositions from "../openPositions.js";
 import type * as publications from "../publications.js";
 import type * as research from "../research.js";
+import type * as siteContent from "../siteContent.js";
 import type * as storage from "../storage.js";
 import type * as team from "../team.js";
 
@@ -26,6 +27,7 @@ declare const fullApi: ApiFromModules<{
   openPositions: typeof openPositions;
   publications: typeof publications;
   research: typeof research;
+  siteContent: typeof siteContent;
   storage: typeof storage;
   team: typeof team;
 }>;

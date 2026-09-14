@@ -44,6 +44,13 @@ export default defineSchema({
     isActive: v.boolean(),
   }),
 
+  siteContent: defineTable({
+    key: v.string(),
+    paragraphs: v.array(v.string()),
+    image: v.optional(v.string()),
+    imageAlt: v.optional(v.string()),
+  }).index("by_key", ["key"]),
+
   sessions: defineTable({
     token: v.string(),
     expiresAt: v.number(),
