@@ -178,7 +178,10 @@ function TeamAdmin({ token }: { token: string }) {
                 {TITLE_OPTIONS.map(t => <option key={t}>{t}</option>)}
               </select>
             </Field>
-            <Field label="Other names (comma-separated)"><input className={input} value={form.otherNames} onChange={e => setForm(f => ({ ...f, otherNames: e.target.value }))} /></Field>
+            <Field label="Other names (comma-separated)">
+              <input className={input} value={form.otherNames} onChange={e => setForm(f => ({ ...f, otherNames: e.target.value }))} placeholder="e.g. Christoph B. Messner" />
+              <p className="text-xs text-gray-400 mt-1">Names used in publications — these will be bolded in the publications list and shown on their personal page.</p>
+            </Field>
             <Field label="Email *"><input className={input} type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} /></Field>
             <Field label="Telephone"><input className={input} value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} /></Field>
             <Field label="Sort order"><input className={input} type="number" value={form.sortOrder} onChange={e => setForm(f => ({ ...f, sortOrder: Number(e.target.value) }))} /></Field>

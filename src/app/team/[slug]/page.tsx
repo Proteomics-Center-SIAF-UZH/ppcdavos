@@ -1,13 +1,16 @@
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 
 export const revalidate = 60;
 
 export default async function MemberPage({ params }: { params: { slug: string } }) {
   const member = await fetchQuery(api.team.getBySlug, { slug: params.slug });
-
   if (!member) notFound();
+
+  const allNames = [member.name, ...(member.otherNames ?? [])];
+  const publications = await fetchQuery(api.publications.getByAuthor, { names: allNames });
 
   return (
     <div className="max-w-2xl mx-auto space-y-8">
@@ -50,8 +53,37 @@ export default async function MemberPage({ params }: { params: { slug: string } 
       </div>
 
       {member.bio && (
-        <div className="prose prose-slate max-w-none border-t pt-6">
+        <div className="border-t pt-6">
           <p className="text-gray-700 leading-relaxed">{member.bio}</p>
+        </div>
+      )}
+
+      {publications.length > 0 && (
+        <div className="border-t pt-6 space-y-6">
+          <h2 className="text-xl font-semibold">Publications</h2>
+          <div className="space-y-6">
+            {publications.map((pub, i) => (
+              <div key={i} className="border-b pb-4 space-y-1">
+                <a
+                  href={pub.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold hover:text-blue-900"
+                >
+                  {pub.title}
+                </a>
+                <p className="text-sm text-gray-600">
+                  {pub.authors.map((author, idx) => (
+                    <Fragment key={author}>
+                      {allNames.includes(author) ? <b>{author}</b> : author}
+                      {idx < pub.authors.length - 1 && (idx === pub.authors.length - 2 ? " & " : ", ")}
+                    </Fragment>
+                  ))}
+                </p>
+                <p className="text-sm text-gray-400">{pub.journal} · {pub.year}</p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

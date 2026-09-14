@@ -8,6 +8,16 @@ export const list = query({
   },
 });
 
+export const getByAuthor = query({
+  args: { names: v.array(v.string()) },
+  handler: async (ctx, { names }) => {
+    const all = await ctx.db.query("publications").collect();
+    return all
+      .filter((p) => p.authors.some((a) => names.includes(a)))
+      .sort((a, b) => b.year - a.year);
+  },
+});
+
 export const create = mutation({
   args: {
     token: v.string(),
