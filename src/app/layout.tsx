@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${lora.variable} font-sans`}>
+      <body className={`${inter.variable} ${lora.variable}`}>
         <ConvexClientProvider>
           <ScrollProgress />
           <div className="flex flex-col min-h-screen justify-between">
