@@ -25,9 +25,9 @@ const Navigation = () => {
   return (
     <div className="sticky top-0 z-50 flex flex-col sm:flex-row sm:flex-nowrap justify-between items-center px-16 py-6 bg-sky-950 text-white shadow-md">
       <a href="/" className="flex flex-col mb-4 sm:mb-0">
-        <h1 className="text-xl font-bold tracking-tight leading-tight">
+        <div className="text-xl font-bold tracking-tight leading-tight" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           Precision Proteomics Center Davos
-        </h1>
+        </div>
         <span className="text-xs text-gray-400 tracking-wide mt-0.5">
           University of Zurich · SIAF
         </span>

@@ -23,15 +23,22 @@
 }
 
 body {
-  color: #334155; /* slate-700 — consistent body text across all pages */
+  color: #334155;
   background: rgb(var(--background-start-rgb));
+  font-family: var(--font-inter), system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.75;
   scroll-behavior: smooth;
 }
 
-h1, h2, h3, h4 {
+/* Serif font for content headings only — nav title is a div, not an h element */
+h1, h2, h3 {
+  font-family: var(--font-lora), Georgia, serif;
   letter-spacing: -0.02em;
+}
+
+h4, h5, h6 {
+  letter-spacing: -0.01em;
 }
 
 .image-fit {
