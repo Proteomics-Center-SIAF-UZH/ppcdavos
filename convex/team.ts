@@ -76,9 +76,15 @@ export const update = mutation({
     sortOrder: v.optional(v.number()),
     bio: v.optional(v.string()),
   },
-  handler: async (ctx, { token, id, bio, ...data }) => {
+  handler: async (ctx, { token, id, bio, prefix, telephone, otherNames, ...data }) => {
     await requireAuth(ctx, token);
-    await ctx.db.patch(id, { ...data, bio: bio || undefined });
+    await ctx.db.patch(id, {
+      ...data,
+      prefix: prefix || undefined,
+      telephone: telephone || undefined,
+      bio: bio || undefined,
+      otherNames: otherNames && otherNames.length > 0 ? otherNames : undefined,
+    });
   },
 });
 

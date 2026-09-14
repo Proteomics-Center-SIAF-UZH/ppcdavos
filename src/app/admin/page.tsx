@@ -145,11 +145,11 @@ function TeamAdmin({ token }: { token: string }) {
     const data = {
       token,
       name: form.name,
-      otherNames: form.otherNames ? form.otherNames.split(",").map(s => s.trim()).filter(Boolean) : undefined,
-      prefix: form.prefix || undefined,
+      otherNames: form.otherNames.split(",").map(s => s.trim()).filter(Boolean),
+      prefix: form.prefix,
       title: form.title,
       email: form.email,
-      telephone: form.telephone || undefined,
+      telephone: form.telephone,
       isAlumni: form.isAlumni,
       isVisiting: form.isVisiting,
       sortOrder: form.sortOrder,
@@ -777,16 +777,27 @@ function ImagesAdmin({ token }: { token: string }) {
   const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
 
   const [form, setForm] = useState({ title: "", source: "" });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  const handleUpload = async (file: File) => {
-    if (!form.title.trim()) { alert("Please enter a title first."); return; }
+  const handleFileSelect = (file: File) => {
+    setSelectedFile(file);
+    setPreview(URL.createObjectURL(file));
+    if (!form.title) setForm(f => ({ ...f, title: file.name.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ") }));
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedFile) { alert("Please select an image file."); return; }
+    if (!form.title.trim()) { alert("Please enter a title."); return; }
     setUploading(true);
     const uploadUrl = await generateUploadUrl({ token });
-    const res = await fetch(uploadUrl, { method: "POST", headers: { "Content-Type": file.type }, body: file });
+    const res = await fetch(uploadUrl, { method: "POST", headers: { "Content-Type": selectedFile.type }, body: selectedFile });
     const { storageId } = await res.json();
     await addImage({ token, storageId, title: form.title, source: form.source || undefined });
     setForm({ title: "", source: "" });
+    setSelectedFile(null);
+    setPreview(null);
     setUploading(false);
   };
 
@@ -796,19 +807,32 @@ function ImagesAdmin({ token }: { token: string }) {
 
       <div className="border rounded-xl p-6 bg-gray-50 space-y-4">
         <h3 className="font-semibold text-sm">Add new image</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <Field label="Title / alt text *">
-            <input className={input} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. SIAF campus in Davos" />
-          </Field>
-          <Field label="Source / credit (optional)">
-            <input className={input} value={form.source} onChange={e => setForm(f => ({ ...f, source: e.target.value }))} placeholder="e.g. © SIAF 2024" />
-          </Field>
+        <div className="flex gap-6 items-start">
+          {/* Preview */}
+          <div className="w-32 h-32 rounded-lg border-2 border-dashed border-gray-200 flex-shrink-0 overflow-hidden bg-white flex items-center justify-center">
+            {preview
+              ? <img src={preview} className="w-full h-full object-cover" alt="preview" />
+              : <span className="text-xs text-gray-300 text-center px-2">No image selected</span>
+            }
+          </div>
+          <div className="flex-1 space-y-3">
+            <Field label="Image file">
+              <input type="file" accept="image/*" className="text-sm"
+                onChange={e => e.target.files?.[0] && handleFileSelect(e.target.files[0])} />
+            </Field>
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Title / alt text *">
+                <input className={input} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. SIAF campus in Davos" />
+              </Field>
+              <Field label="Source / credit (optional)">
+                <input className={input} value={form.source} onChange={e => setForm(f => ({ ...f, source: e.target.value }))} placeholder="e.g. © SIAF 2024" />
+              </Field>
+            </div>
+            <button className={btnPrimary} onClick={handleSubmit} disabled={uploading}>
+              {uploading ? "Uploading…" : "Add image"}
+            </button>
+          </div>
         </div>
-        <Field label="Image file">
-          <input type="file" accept="image/*" className="text-sm"
-            onChange={e => e.target.files?.[0] && handleUpload(e.target.files[0])} />
-          {uploading && <p className="text-xs text-gray-500 mt-1">Uploading…</p>}
-        </Field>
       </div>
 
       {images.length === 0 ? (
