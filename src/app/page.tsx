@@ -35,7 +35,6 @@ export default async function Home() {
           <p className="text-base font-medium text-sky-700 uppercase tracking-widest">
             University of Zurich · SIAF
           </p>
-          <div className="w-12 h-1 bg-sky-950 rounded-full" />
         </div>
       </FadeIn>
 
