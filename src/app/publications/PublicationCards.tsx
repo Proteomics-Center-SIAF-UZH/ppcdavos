@@ -40,7 +40,7 @@ const PublicationInYear = ({
   year: number; publications: PublicationType[]; teamMemberNames: string[];
 }) => (
   <div className="space-y-10">
-    <h3 className="text-xl font-semibold pl-3 border-l-4 border-sky-950">{year}</h3>
+    <h3 className="text-xl font-semibold">{year}</h3>
     {publications.map((pub, i) => (
       <Publication {...pub} year={year} key={`${year}-${i}`} teamMemberNames={teamMemberNames} />
     ))}
