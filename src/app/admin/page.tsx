@@ -661,7 +661,7 @@ function SettingsAdmin({ token }: { token: string }) {
 
   // Social links
   const socialRaw = useQuery(api.siteSettings.getByKey, { key: "social" });
-  const [social, setSocial] = useState({ twitter: "", github: "", bluesky: "" });
+  const [social, setSocial] = useState({ twitter: "", github: "", bluesky: "", linkedin: "" });
   const [socialSaved, setSocialSaved] = useState(false);
 
   useEffect(() => {
@@ -713,6 +713,9 @@ function SettingsAdmin({ token }: { token: string }) {
         </Field>
         <Field label="Bluesky URL">
           <input className={input} value={social.bluesky} onChange={e => setSocial(s => ({ ...s, bluesky: e.target.value }))} placeholder="https://bsky.app/profile/..." />
+        </Field>
+        <Field label="LinkedIn URL">
+          <input className={input} value={social.linkedin} onChange={e => setSocial(s => ({ ...s, linkedin: e.target.value }))} placeholder="https://linkedin.com/in/..." />
         </Field>
         <div className="flex items-center gap-3">
           <button className={btnPrimary} onClick={saveSocial}>Save</button>

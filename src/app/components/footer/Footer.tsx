@@ -7,6 +7,7 @@ const DEFAULT_SOCIAL = {
   twitter: "https://twitter.com/i/flow/login?redirect_after_login=%2Fchr_messner",
   github: "https://github.com/Proteomics-Center-SIAF-UZH",
   bluesky: "https://bsky.app/profile/christophmessner.bsky.social",
+  linkedin: "",
 };
 
 const DEFAULT_LINKS = [
@@ -71,6 +72,14 @@ const Footer = async () => {
                   <path fillRule="evenodd" d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z" clipRule="evenodd"/>
                 </svg>
                 <span className="sr-only">Bluesky</span>
+              </a>
+            )}
+            {social.linkedin && (
+              <a href={social.linkedin} target="_blank" className="hover:text-gray-300">
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span className="sr-only">LinkedIn</span>
               </a>
             )}
           </div>
