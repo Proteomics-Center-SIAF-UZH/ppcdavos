@@ -175,9 +175,16 @@ function TeamAdmin({ token }: { token: string }) {
             <Field label="Name *"><input className={input} value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} /></Field>
             <Field label="Prefix (e.g. Prof. Dr.)"><input className={input} value={form.prefix} onChange={e => setForm(f => ({ ...f, prefix: e.target.value }))} /></Field>
             <Field label="Title *">
-              <select className={input} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}>
-                {TITLE_OPTIONS.map(t => <option key={t}>{t}</option>)}
-              </select>
+              <input
+                className={input}
+                list="title-options"
+                value={form.title}
+                onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+                placeholder="e.g. Doctoral candidate"
+              />
+              <datalist id="title-options">
+                {TITLE_OPTIONS.map(t => <option key={t} value={t} />)}
+              </datalist>
             </Field>
             <Field label="Other names (comma-separated)">
               <input className={input} value={form.otherNames} onChange={e => setForm(f => ({ ...f, otherNames: e.target.value }))} placeholder="e.g. Christoph B. Messner" />
