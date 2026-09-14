@@ -1,11 +1,23 @@
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../convex/_generated/api";
 import { Title } from "../content/types";
-import { MemberTable } from "./MemberTable";
+import { MemberGrid } from "./MemberGrid";
 import { AlumniList } from "./AlumniList";
 import { PageHeader } from "../components/PageHeader";
 
 export const revalidate = 60;
+
+const Section = ({ title, members }: { title: string; members: any[] }) => {
+  if (!members.length) return null;
+  return (
+    <div className="space-y-5">
+      <h2 className="text-lg font-semibold text-gray-500 uppercase tracking-widest">
+        {title}
+      </h2>
+      <MemberGrid members={members} />
+    </div>
+  );
+};
 
 export default async function Team() {
   const teamMembers = await fetchQuery(api.team.list);
@@ -20,31 +32,18 @@ export default async function Team() {
   const doctoralCandidates = active.filter((m) => m.title === Title.DOCTORAL_CANDIDATE);
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-14">
       <PageHeader title="Team" />
-      <div className="mb-16 space-y-6">
-        <h3 className="text-2xl">Group lead{professors.length > 1 ? "s" : ""}</h3>
-        <MemberTable members={professors} />
-      </div>
-      <div className="mb-16 space-y-4">
-        <h3 className="text-2xl">Lab manager{labManagers.length > 1 ? "s" : ""}</h3>
-        <MemberTable members={labManagers} />
-      </div>
-      <div className="mb-16 space-y-4">
-        <h3 className="text-2xl">Lab technician{labTechnicians.length > 1 ? "s" : ""}</h3>
-        <MemberTable members={labTechnicians} />
-      </div>
-      <div className="mb-16 space-y-4">
-        <h3 className="text-2xl">Post doctoral researcher{postDocs.length > 1 ? "s" : ""}</h3>
-        <MemberTable members={postDocs} />
-      </div>
-      <div className="mb-16 space-y-4">
-        <h3 className="text-2xl">Doctoral candidate{doctoralCandidates.length > 1 ? "s" : ""}</h3>
-        <MemberTable members={doctoralCandidates} />
-      </div>
+      <Section title={professors.length > 1 ? "Group leads" : "Group lead"} members={professors} />
+      <Section title={labManagers.length > 1 ? "Lab managers" : "Lab manager"} members={labManagers} />
+      <Section title={labTechnicians.length > 1 ? "Lab technicians" : "Lab technician"} members={labTechnicians} />
+      <Section title="Postdoctoral researchers" members={postDocs} />
+      <Section title="Doctoral candidates" members={doctoralCandidates} />
       {alumni.length > 0 && (
-        <div className="mb-16 space-y-4">
-          <h3 className="text-2xl">{alumni.length === 1 ? "Alumnus/Alumna" : "Alumni"}</h3>
+        <div className="space-y-5">
+          <h2 className="text-lg font-semibold text-gray-500 uppercase tracking-widest">
+            {alumni.length === 1 ? "Alumnus / Alumna" : "Alumni"}
+          </h2>
           <AlumniList members={alumni} />
         </div>
       )}
