@@ -13,6 +13,7 @@ export default defineSchema({
     isVisiting: v.optional(v.boolean()),
     isAlumni: v.optional(v.boolean()),
     sortOrder: v.optional(v.number()),
+    bio: v.optional(v.string()),
   }),
 
   publications: defineTable({

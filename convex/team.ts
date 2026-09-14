@@ -15,13 +15,25 @@ export const list = query({
     const members = await ctx.db
       .query("team")
       .collect();
-    const sorted = members.sort((a: any, b: any) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+    const sorted = members.sort((a: any, b: any) => a.name.localeCompare(b.name));
     return await Promise.all(
       sorted.map(async (m: any) => ({
         ...m,
         imageUrl: await resolveImage(ctx, m.image),
       }))
     );
+  },
+});
+
+export const getBySlug = query({
+  args: { slug: v.string() },
+  handler: async (ctx, { slug }) => {
+    const members = await ctx.db.query("team").collect();
+    const member = members.find(
+      (m) => m.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") === slug
+    );
+    if (!member) return null;
+    return { ...member, imageUrl: await resolveImage(ctx, member.image) };
   },
 });
 
@@ -38,6 +50,7 @@ export const create = mutation({
     isVisiting: v.optional(v.boolean()),
     isAlumni: v.optional(v.boolean()),
     sortOrder: v.optional(v.number()),
+    bio: v.optional(v.string()),
   },
   handler: async (ctx, { token, ...data }) => {
     await requireAuth(ctx, token);
@@ -59,6 +72,7 @@ export const update = mutation({
     isVisiting: v.optional(v.boolean()),
     isAlumni: v.optional(v.boolean()),
     sortOrder: v.optional(v.number()),
+    bio: v.optional(v.string()),
   },
   handler: async (ctx, { token, id, ...data }) => {
     await requireAuth(ctx, token);

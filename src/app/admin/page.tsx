@@ -98,7 +98,7 @@ type TeamMember = {
 
 const emptyMember = {
   name: "", otherNames: "", prefix: "", title: "Doctoral candidate",
-  email: "", telephone: "", isAlumni: false, isVisiting: false, sortOrder: 0,
+  email: "", telephone: "", isAlumni: false, isVisiting: false, sortOrder: 0, bio: "",
 };
 
 function TeamAdmin({ token }: { token: string }) {
@@ -120,7 +120,7 @@ function TeamAdmin({ token }: { token: string }) {
       name: m.name, otherNames: (m.otherNames ?? []).join(", "),
       prefix: m.prefix ?? "", title: m.title, email: m.email,
       telephone: m.telephone ?? "", isAlumni: m.isAlumni ?? false,
-      isVisiting: m.isVisiting ?? false, sortOrder: m.sortOrder ?? 0,
+      isVisiting: m.isVisiting ?? false, sortOrder: m.sortOrder ?? 0, bio: (m as any).bio ?? "",
     });
     setImageStorageId(m.image ?? "");
   };
@@ -147,6 +147,7 @@ function TeamAdmin({ token }: { token: string }) {
       isVisiting: form.isVisiting,
       sortOrder: form.sortOrder,
       image: imageStorageId || undefined,
+      bio: form.bio || undefined,
     };
     if (editing) {
       await updateMember({ ...data, id: editing._id });
@@ -187,6 +188,9 @@ function TeamAdmin({ token }: { token: string }) {
               {imageStorageId && !uploading && <p className="text-xs text-green-600">✓ Photo set</p>}
             </Field>
           </div>
+          <Field label="Bio">
+            <textarea className={`${input} h-24`} value={form.bio} onChange={e => setForm(f => ({ ...f, bio: e.target.value }))} placeholder="Short bio shown on the member's personal page" />
+          </Field>
           <div className="flex gap-3 items-center">
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.isAlumni} onChange={e => setForm(f => ({ ...f, isAlumni: e.target.checked }))} /> Alumni</label>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.isVisiting} onChange={e => setForm(f => ({ ...f, isVisiting: e.target.checked }))} /> Visiting</label>

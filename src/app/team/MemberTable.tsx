@@ -53,11 +53,14 @@ export const MemberTable = ({ members }: { members: Member[] }) => {
               <td className="pl-4 py-3 w-5/10 font-medium">
                 <div className="flex items-center gap-3">
                   <MemberAvatar imageUrl={(member as any).imageUrl} name={member.name} />
-                  <span>
+                  <a
+                    href={`/team/${member.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`}
+                    className="hover:text-sky-700 hover:underline"
+                  >
                     {member.prefix ? `${member.prefix.trim()} ` : ""}
                     {member.name}
                     {member.isVisiting ? " (visiting)" : ""}
-                  </span>
+                  </a>
                 </div>
               </td>
               <td className="pl-4 py-3 w-3/10 break-words">
