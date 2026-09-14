@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
-// siteContent imported via api.siteContent.*
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 // ── Auth ───────────────────────────────────────────────────────────────────────
 
@@ -113,8 +115,11 @@ function TeamAdmin({ token }: { token: string }) {
   const [form, setForm] = useState(emptyMember);
   const [uploading, setUploading] = useState(false);
   const [imageStorageId, setImageStorageId] = useState<string>("");
+  const formRef = useRef<HTMLDivElement>(null);
 
-  const openAdd = () => { setEditing(null); setForm(emptyMember); setImageStorageId(""); };
+  const scrollToForm = () => setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+
+  const openAdd = () => { setEditing(null); setForm(emptyMember); setImageStorageId(""); scrollToForm(); };
   const openEdit = (m: TeamMember) => {
     setEditing(m);
     setForm({
@@ -124,6 +129,7 @@ function TeamAdmin({ token }: { token: string }) {
       isVisiting: m.isVisiting ?? false, sortOrder: m.sortOrder ?? 0, bio: (m as any).bio ?? "",
     });
     setImageStorageId(m.image ?? "");
+    scrollToForm();
   };
 
   const handleImageUpload = async (file: File) => {
@@ -169,7 +175,7 @@ function TeamAdmin({ token }: { token: string }) {
       </div>
 
       {showForm && (
-        <div className="border rounded-xl p-6 bg-gray-50 space-y-4">
+        <div ref={formRef} className="border rounded-xl p-6 bg-gray-50 space-y-4">
           <h3 className="font-semibold">{editing ? "Edit member" : "New member"}</h3>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Name *"><input className={input} value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} /></Field>
@@ -347,17 +353,59 @@ type ResearchItem = {
 
 const emptyResearch = { title: "", textBlocks: "", imageAlt: "", sortOrder: 0 };
 
+function SortableResearchRow({ item, onEdit, onDelete }: { item: ResearchItem; onEdit: (r: ResearchItem) => void; onDelete: (id: Id<"research">) => void }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item._id });
+  return (
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.4 : 1 }}
+      className="border rounded-lg p-4 flex justify-between items-center bg-white hover:bg-gray-50"
+    >
+      <div className="flex items-center gap-3">
+        <button {...attributes} {...listeners} className="cursor-grab text-gray-300 hover:text-gray-400 p-1 touch-none">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>
+            <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
+            <circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/>
+          </svg>
+        </button>
+        <p className="font-medium text-sm">{item.title || <span className="text-gray-400 italic">Intro section</span>}</p>
+      </div>
+      <div className="flex gap-2">
+        <button className={btnSecondary} onClick={() => onEdit(item)}>Edit</button>
+        <button className={btnDanger} onClick={() => onDelete(item._id)}>Delete</button>
+      </div>
+    </div>
+  );
+}
+
 function ResearchAdmin({ token }: { token: string }) {
   const items = useQuery(api.research.list) ?? [];
   const createItem = useMutation(api.research.create);
   const updateItem = useMutation(api.research.update);
   const removeItem = useMutation(api.research.remove);
+  const reorderItems = useMutation(api.research.reorder);
   const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
 
   const [editing, setEditing] = useState<ResearchItem | null | undefined>(undefined);
   const [form, setForm] = useState(emptyResearch);
   const [imageStorageId, setImageStorageId] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [localItems, setLocalItems] = useState<ResearchItem[]>([]);
+
+  useEffect(() => { if (items.length) setLocalItems(items); }, [items]);
+
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIndex = localItems.findIndex(i => i._id === active.id);
+    const newIndex = localItems.findIndex(i => i._id === over.id);
+    const reordered = arrayMove(localItems, oldIndex, newIndex);
+    setLocalItems(reordered);
+    await reorderItems({ token, ids: reordered.map(i => i._id) });
+  };
 
   const openAdd = () => { setEditing(null); setForm(emptyResearch); setImageStorageId(""); };
   const openEdit = (r: ResearchItem) => {
@@ -421,17 +469,20 @@ function ResearchAdmin({ token }: { token: string }) {
         </div>
       )}
 
-      <div className="space-y-2">
-        {items.map((r) => (
-          <div key={r._id} className="border rounded-lg p-4 flex justify-between items-center hover:bg-gray-50">
-            <p className="font-medium text-sm">{r.title || <span className="text-gray-400 italic">Intro section</span>}</p>
-            <div className="flex gap-2">
-              <button className={btnSecondary} onClick={() => openEdit(r)}>Edit</button>
-              <button className={btnDanger} onClick={() => { if (window.confirm(`Delete "${r.title || 'Intro section'}"?`)) removeItem({ token, id: r._id }); }}>Delete</button>
-            </div>
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={localItems.map(i => i._id)} strategy={verticalListSortingStrategy}>
+          <div className="space-y-2">
+            {localItems.map((r) => (
+              <SortableResearchRow
+                key={r._id}
+                item={r}
+                onEdit={openEdit}
+                onDelete={(id) => { if (window.confirm(`Delete "${r.title || 'Intro section'}"?`)) removeItem({ token, id }); }}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }

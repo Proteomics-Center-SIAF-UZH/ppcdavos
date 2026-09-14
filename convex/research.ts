@@ -53,6 +53,14 @@ export const update = mutation({
   },
 });
 
+export const reorder = mutation({
+  args: { token: v.string(), ids: v.array(v.id("research")) },
+  handler: async (ctx, { token, ids }) => {
+    await requireAuth(ctx, token);
+    await Promise.all(ids.map((id, i) => ctx.db.patch(id, { sortOrder: i })));
+  },
+});
+
 export const remove = mutation({
   args: { token: v.string(), id: v.id("research") },
   handler: async (ctx, { token, id }) => {
