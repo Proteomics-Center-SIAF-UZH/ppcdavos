@@ -29,7 +29,7 @@ export const AlumniList = ({ members }: { members: any[] }) => (
               {member.name}
             </p>
             <p className="text-xs uppercase tracking-wider text-gray-400 font-medium mt-1">
-              {member.title}
+              {member.isVisiting ? `Visiting ${member.title}` : member.title}
             </p>
           </div>
         </div>

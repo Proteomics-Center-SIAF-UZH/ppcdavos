@@ -27,7 +27,8 @@ export const list = query({
       const aOrder = titleOrder[a.title] ?? 99;
       const bOrder = titleOrder[b.title] ?? 99;
       if (aOrder !== bOrder) return aOrder - bOrder;
-      return a.name.localeCompare(b.name);
+      const firstName = (n: string) => n.split(" ")[0];
+      return firstName(a.name).localeCompare(firstName(b.name));
     });
     return await Promise.all(
       sorted.map(async (m: any) => ({
