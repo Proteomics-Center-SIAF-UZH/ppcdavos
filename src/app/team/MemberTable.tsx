@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Member } from "../content/types";
 
-const MemberAvatar = ({ image, name }: { image: string; name: string }) => {
+const MemberAvatar = ({ imageUrl, name }: { imageUrl?: string | null; name: string }) => {
   const [broken, setBroken] = useState(false);
   const initials = name
     .split(" ")
@@ -11,7 +11,7 @@ const MemberAvatar = ({ image, name }: { image: string; name: string }) => {
     .map((w) => w[0])
     .join("");
 
-  if (broken) {
+  if (!imageUrl || broken) {
     return (
       <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-xs font-semibold flex-shrink-0">
         {initials}
@@ -21,7 +21,7 @@ const MemberAvatar = ({ image, name }: { image: string; name: string }) => {
 
   return (
     <img
-      src={`/images/members/${image}`}
+      src={imageUrl}
       alt={name}
       className="w-8 h-8 rounded-full object-cover flex-shrink-0"
       onError={() => setBroken(true)}
@@ -48,7 +48,7 @@ export const MemberTable = ({ members }: { members: Member[] }) => {
             >
               <td className="pl-4 py-3 w-5/10 font-medium">
                 <div className="flex items-center gap-3">
-                  <MemberAvatar image={member.image} name={member.name} />
+                  <MemberAvatar imageUrl={(member as any).imageUrl} name={member.name} />
                   <span>
                     {member.prefix ? `${member.prefix.trim()} ` : ""}
                     {member.name}
