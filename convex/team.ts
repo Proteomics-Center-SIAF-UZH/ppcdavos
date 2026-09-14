@@ -6,7 +6,7 @@ import { Id } from "./_generated/dataModel";
 async function resolveImage(ctx: any, image?: string) {
   if (!image) return undefined;
   if (image.startsWith("http") || image.startsWith("/")) return image;
-  if (image.includes(".")) return `/images/members/${image}`;
+  if (image.includes(".")) return undefined; // legacy filename — upload via admin to get a Convex URL
   return await ctx.storage.getUrl(image as Id<"_storage">);
 }
 
