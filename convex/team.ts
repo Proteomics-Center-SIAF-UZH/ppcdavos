@@ -54,6 +54,8 @@ export const create = mutation({
     sortOrder: v.optional(v.number()),
     bio: v.optional(v.string()),
     linkedin: v.optional(v.string()),
+    orcid: v.optional(v.string()),
+    googleScholar: v.optional(v.string()),
   },
   handler: async (ctx, { token, ...data }) => {
     await requireAuth(ctx, token);
@@ -77,8 +79,10 @@ export const update = mutation({
     sortOrder: v.optional(v.number()),
     bio: v.optional(v.string()),
     linkedin: v.optional(v.string()),
+    orcid: v.optional(v.string()),
+    googleScholar: v.optional(v.string()),
   },
-  handler: async (ctx, { token, id, bio, prefix, telephone, otherNames, linkedin, ...data }) => {
+  handler: async (ctx, { token, id, bio, prefix, telephone, otherNames, linkedin, orcid, googleScholar, ...data }) => {
     await requireAuth(ctx, token);
     await ctx.db.patch(id, {
       ...data,
@@ -86,6 +90,8 @@ export const update = mutation({
       telephone: telephone || undefined,
       bio: bio || undefined,
       linkedin: linkedin || undefined,
+      orcid: orcid || undefined,
+      googleScholar: googleScholar || undefined,
       otherNames: otherNames && otherNames.length > 0 ? otherNames : undefined,
     });
   },

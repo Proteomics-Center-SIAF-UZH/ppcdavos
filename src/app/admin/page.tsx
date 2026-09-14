@@ -101,7 +101,7 @@ type TeamMember = {
 
 const emptyMember = {
   name: "", otherNames: "", prefix: "", title: "Doctoral candidate",
-  email: "", telephone: "", isAlumni: false, isVisiting: false, bio: "", linkedin: "",
+  email: "", telephone: "", isAlumni: false, isVisiting: false, bio: "", linkedin: "", orcid: "", googleScholar: "",
 };
 
 function TeamAdmin({ token }: { token: string }) {
@@ -126,7 +126,7 @@ function TeamAdmin({ token }: { token: string }) {
       name: m.name, otherNames: (m.otherNames ?? []).join(", "),
       prefix: m.prefix ?? "", title: m.title, email: m.email,
       telephone: m.telephone ?? "", isAlumni: m.isAlumni ?? false,
-      isVisiting: m.isVisiting ?? false, bio: (m as any).bio ?? "", linkedin: (m as any).linkedin ?? "",
+      isVisiting: m.isVisiting ?? false, bio: (m as any).bio ?? "", linkedin: (m as any).linkedin ?? "", orcid: (m as any).orcid ?? "", googleScholar: (m as any).googleScholar ?? "",
     });
     setImageStorageId(m.image ?? "");
     scrollToForm();
@@ -155,6 +155,8 @@ function TeamAdmin({ token }: { token: string }) {
       image: imageStorageId || undefined,
       bio: form.bio,
       linkedin: form.linkedin,
+      orcid: form.orcid,
+      googleScholar: form.googleScholar,
     };
     if (editing) {
       await updateMember({ ...data, id: editing._id });
@@ -199,6 +201,8 @@ function TeamAdmin({ token }: { token: string }) {
             <Field label="Email *"><input className={input} type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} /></Field>
             <Field label="Telephone"><input className={input} value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} /></Field>
             <Field label="LinkedIn URL"><input className={input} value={form.linkedin} onChange={e => setForm(f => ({ ...f, linkedin: e.target.value }))} placeholder="https://linkedin.com/in/..." /></Field>
+            <Field label="ORCID URL"><input className={input} value={form.orcid} onChange={e => setForm(f => ({ ...f, orcid: e.target.value }))} placeholder="https://orcid.org/0000-0000-0000-0000" /></Field>
+            <Field label="Google Scholar URL"><input className={input} value={form.googleScholar} onChange={e => setForm(f => ({ ...f, googleScholar: e.target.value }))} placeholder="https://scholar.google.com/citations?user=..." /></Field>
             <Field label="Photo">
               <ImagePicker currentStorageId={imageStorageId} onSelect={setImageStorageId} token={token} />
             </Field>

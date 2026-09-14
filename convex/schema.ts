@@ -15,6 +15,8 @@ export default defineSchema({
     sortOrder: v.optional(v.number()),
     bio: v.optional(v.string()),
     linkedin: v.optional(v.string()),
+    orcid: v.optional(v.string()),
+    googleScholar: v.optional(v.string()),
   }),
 
   publications: defineTable({
