@@ -871,6 +871,17 @@ function ImagesAdmin({ token }: { token: string }) {
 function SettingsAdmin({ token }: { token: string }) {
   const upsert = useMutation(api.siteSettings.upsert);
 
+  // Logo
+  const logoStorageId = useQuery(api.siteSettings.getByKey, { key: "logo" }) ?? "";
+  const [logoId, setLogoId] = useState("");
+  const [logoSaved, setLogoSaved] = useState(false);
+  useEffect(() => { if (logoStorageId !== undefined) setLogoId(logoStorageId ?? ""); }, [logoStorageId]);
+  const saveLogo = async () => {
+    await upsert({ token, key: "logo", value: logoId });
+    setLogoSaved(true);
+    setTimeout(() => setLogoSaved(false), 2000);
+  };
+
   // Social links
   const socialRaw = useQuery(api.siteSettings.getByKey, { key: "social" });
   const [social, setSocial] = useState({ twitter: "", github: "", bluesky: "", linkedin: "" });
@@ -913,6 +924,17 @@ function SettingsAdmin({ token }: { token: string }) {
   return (
     <div className="space-y-12">
       <h2 className="text-xl font-semibold">Settings</h2>
+
+      {/* Logo */}
+      <div className="space-y-4">
+        <h3 className="text-base font-semibold border-b pb-2">Header logo</h3>
+        <p className="text-xs text-gray-400">Upload a logo via the Images tab first, then pick it here. Leave empty to show no logo.</p>
+        <ImagePicker currentStorageId={logoId} onSelect={setLogoId} token={token} />
+        <div className="flex items-center gap-3">
+          <button className={btnPrimary} onClick={saveLogo}>Save</button>
+          {logoSaved && <span className="text-sm text-green-600">Saved!</span>}
+        </div>
+      </div>
 
       {/* Social links */}
       <div className="space-y-4">

@@ -1,6 +1,7 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { requireAuth } from "./auth";
+import { Id } from "./_generated/dataModel";
 
 export const getByKey = query({
   args: { key: v.string() },
@@ -10,6 +11,17 @@ export const getByKey = query({
       .withIndex("by_key", (q) => q.eq("key", key))
       .first();
     return row?.value ?? null;
+  },
+});
+
+export const getLogoUrl = query({
+  handler: async (ctx) => {
+    const setting = await ctx.db
+      .query("siteSettings")
+      .withIndex("by_key", (q) => q.eq("key", "logo"))
+      .first();
+    if (!setting?.value) return null;
+    return await ctx.storage.getUrl(setting.value as Id<"_storage">);
   },
 });
 

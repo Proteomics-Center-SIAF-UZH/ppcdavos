@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../convex/_generated/api";
 import Navigation from "./components/navigation/Navigation";
 import Footer from "./components/footer/Footer";
 import { ConvexClientProvider } from "./ConvexClientProvider";
@@ -14,18 +16,16 @@ export const metadata: Metadata = {
   description: "Official website for Precision Proteomics Center Davos",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const logoUrl = await fetchQuery(api.siteSettings.getLogoUrl).catch(() => null);
+
   return (
     <html lang="en">
       <body className={`${inter.variable} ${lora.variable}`}>
         <ConvexClientProvider>
           <ScrollProgress />
           <div className="flex flex-col min-h-screen justify-between">
-            <Navigation />
+            <Navigation logoUrl={logoUrl} />
             <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 py-20 min-h-[80vh]">
               {children}
             </div>
