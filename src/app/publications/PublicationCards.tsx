@@ -8,7 +8,7 @@ const Publication = ({
   title: string; journal: string; link: string; abstract?: string;
   authors: string[]; year: number; teamMemberNames: string[];
 }) => (
-  <div className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 space-y-2">
+  <div className="border-b p-6 my-6 space-y-2 hover:bg-gray-50 rounded-lg transition-colors">
     <div className="flex flex-wrap justify-between">
       <a href={link} target="_blank" className="hover:text-blue-900 text-lg font-bold">
         {title}
@@ -38,7 +38,7 @@ const PublicationInYear = ({
 }: {
   year: number; publications: PublicationType[]; teamMemberNames: string[];
 }) => (
-  <div className="space-y-4">
+  <div className="space-y-10">
     <h3 className="text-xl font-semibold pl-3 border-l-4 border-sky-950">{year}</h3>
     {publications.map((pub, i) => (
       <Publication {...pub} year={year} key={`${year}-${i}`} teamMemberNames={teamMemberNames} />
