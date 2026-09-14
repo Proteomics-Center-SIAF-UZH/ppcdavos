@@ -30,6 +30,22 @@ function parseCSV(text: string): Record<string, string>[] {
   });
 }
 
+export const clear = action({
+  handler: async (ctx) => {
+    await ctx.runMutation(internal.seed.clearAll);
+    return "Cleared all data";
+  },
+});
+
+export const clearAll = internalMutation({
+  handler: async (ctx) => {
+    for (const table of ["team", "publications", "research", "openPositions"] as const) {
+      const rows = await ctx.db.query(table).collect();
+      await Promise.all(rows.map((r) => ctx.db.delete(r._id)));
+    }
+  },
+});
+
 export const populate = action({
   handler: async (ctx) => {
     // ── Team ────────────────────────────────────────────────────────────────
