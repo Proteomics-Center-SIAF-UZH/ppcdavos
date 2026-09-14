@@ -3,48 +3,49 @@ import { api } from "../../../convex/_generated/api";
 import { TextWithImageSection } from "../components/section/TextWithImageSection";
 import { TextWithoutImageSection } from "../components/section/TextWithoutImageSection";
 import { PageHeader } from "../components/PageHeader";
+import { parseLinks } from "../utils/parseLinks";
 
 export const revalidate = 60;
-
-const parseTextWithLinks = (text: string) => {
-  const parts = text.split(/\[([^\]]+)\]\(([^)]+)\)/g);
-  return parts.map((part, index) => {
-    if (index % 3 === 1) {
-      const url = parts[index + 1];
-      return (
-        <a key={index} href={url} target="_blank" rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-800 underline">
-          {part}
-        </a>
-      );
-    }
-    if (index % 3 === 2) return null;
-    return part;
-  }).filter(Boolean);
-};
 
 export default async function Research() {
   const research = await fetchQuery(api.research.list);
 
+  let sectionCount = 0;
+
   return (
     <div className="gap-y-8">
       <PageHeader title="Research" />
-      <div className="space-y-12">
+      <div className="space-y-14">
         {research.map(({ title, textBlocks, imageSrc, imageAlt }, index) => {
+          if (title) sectionCount++;
+          const num = sectionCount;
+
           const textContent = (
             <>
               {(textBlocks as string[]).map((text, i) => (
-                <p key={i}>{parseTextWithLinks(text)}</p>
+                <p key={i}>{parseLinks(text)}</p>
               ))}
             </>
           );
+
+          const titleEl = title ? (
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-8 h-8 rounded-full bg-sky-950 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">
+                {String(num).padStart(2, "0")}
+              </span>
+              <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+            </div>
+          ) : null;
+
           return imageSrc && imageAlt ? (
             <div key={index}>
-              <TextWithImageSection title={title} text={textContent} imgSrc={imageSrc} imgAlt={imageAlt} />
+              {titleEl}
+              <TextWithImageSection text={textContent} imgSrc={imageSrc} imgAlt={imageAlt} />
             </div>
           ) : (
             <div key={index}>
-              <TextWithoutImageSection title={title} text={textContent} />
+              {titleEl}
+              <TextWithoutImageSection text={textContent} />
             </div>
           );
         })}
