@@ -9,6 +9,7 @@ export default async function MemberPage({ params }: { params: { slug: string } 
   const member = await fetchQuery(api.team.getBySlug, { slug: params.slug });
   if (!member) notFound();
 
+  const imageUrl = (member as any).imageUrl as string | null | undefined;
   const allNames = [member.name, ...(member.otherNames ?? [])];
   const publications = await fetchQuery(api.publications.getByAuthor, { names: allNames });
 
@@ -23,10 +24,10 @@ export default async function MemberPage({ params }: { params: { slug: string } 
           <div className="w-36 h-36 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-4xl font-semibold shadow">
             {member.name.split(" ").slice(0, 2).map((w: string) => w[0]).join("")}
           </div>
-          {member.imageUrl && (
+          {imageUrl && (
             <div
               className="absolute inset-0 rounded-full bg-cover bg-center shadow"
-              style={{ backgroundImage: `url(${member.imageUrl})` }}
+              style={{ backgroundImage: `url(${imageUrl})` }}
             />
           )}
         </div>

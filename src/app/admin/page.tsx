@@ -223,8 +223,8 @@ function TeamAdmin({ token }: { token: string }) {
                     <div className="w-7 h-7 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-xs font-semibold">
                       {m.name.split(" ").slice(0, 2).map((w: string) => w[0]).join("")}
                     </div>
-                    {m.imageUrl && (
-                      <div className="absolute inset-0 rounded-full bg-cover bg-center" style={{ backgroundImage: `url(${m.imageUrl})` }} />
+                    {(m as any).imageUrl && (
+                      <div className="absolute inset-0 rounded-full bg-cover bg-center" style={{ backgroundImage: `url(${(m as any).imageUrl})` }} />
                     )}
                   </div>
                   {m.name} {m.isAlumni && <span className="text-xs bg-gray-100 px-1 rounded">Alumni</span>}
@@ -233,7 +233,7 @@ function TeamAdmin({ token }: { token: string }) {
                 <td className="pl-4 py-3 text-gray-500">{m.email}</td>
                 <td className="pr-4 py-3 flex gap-2 justify-end">
                   <button className={btnSecondary} onClick={() => openEdit(m)}>Edit</button>
-                  <button className={btnDanger} onClick={() => removeMember({ token, id: m._id })}>Delete</button>
+                  <button className={btnDanger} onClick={() => { if (window.confirm(`Delete ${m.name}?`)) removeMember({ token, id: m._id }); }}>Delete</button>
                 </td>
               </tr>
             ))}
@@ -320,7 +320,7 @@ function PublicationsAdmin({ token }: { token: string }) {
             </div>
             <div className="flex gap-2 flex-shrink-0 ml-4">
               <button className={btnSecondary} onClick={() => openEdit(p)}>Edit</button>
-              <button className={btnDanger} onClick={() => removePub({ token, id: p._id })}>Delete</button>
+              <button className={btnDanger} onClick={() => { if (window.confirm(`Delete "${p.title}"?`)) removePub({ token, id: p._id }); }}>Delete</button>
             </div>
           </div>
         ))}
@@ -419,7 +419,7 @@ function ResearchAdmin({ token }: { token: string }) {
             <p className="font-medium text-sm">{r.title || <span className="text-gray-400 italic">Intro section</span>}</p>
             <div className="flex gap-2">
               <button className={btnSecondary} onClick={() => openEdit(r)}>Edit</button>
-              <button className={btnDanger} onClick={() => removeItem({ token, id: r._id })}>Delete</button>
+              <button className={btnDanger} onClick={() => { if (window.confirm(`Delete "${r.title || 'Intro section'}"?`)) removeItem({ token, id: r._id }); }}>Delete</button>
             </div>
           </div>
         ))}
@@ -521,7 +521,7 @@ function OpenPositionsAdmin({ token }: { token: string }) {
             </div>
             <div className="flex gap-2">
               <button className={btnSecondary} onClick={() => openEdit(p)}>Edit</button>
-              <button className={btnDanger} onClick={() => removePos({ token, id: p._id })}>Delete</button>
+              <button className={btnDanger} onClick={() => { if (window.confirm(`Delete "${p.title}"?`)) removePos({ token, id: p._id }); }}>Delete</button>
             </div>
           </div>
         ))}
