@@ -654,9 +654,98 @@ function PagesAdmin({ token }: { token: string }) {
   );
 }
 
+// ── Settings ───────────────────────────────────────────────────────────────────
+
+function SettingsAdmin({ token }: { token: string }) {
+  const upsert = useMutation(api.siteSettings.upsert);
+
+  // Social links
+  const socialRaw = useQuery(api.siteSettings.getByKey, { key: "social" });
+  const [social, setSocial] = useState({ twitter: "", github: "", bluesky: "" });
+  const [socialSaved, setSocialSaved] = useState(false);
+
+  useEffect(() => {
+    if (socialRaw) {
+      try { setSocial(JSON.parse(socialRaw)); } catch {}
+    }
+  }, [socialRaw]);
+
+  const saveSocial = async () => {
+    await upsert({ token, key: "social", value: JSON.stringify(social) });
+    setSocialSaved(true);
+    setTimeout(() => setSocialSaved(false), 2000);
+  };
+
+  // Footer links
+  const linksRaw = useQuery(api.siteSettings.getByKey, { key: "footerLinks" });
+  const [links, setLinks] = useState<{ name: string; link: string }[]>([]);
+  const [linksSaved, setLinksSaved] = useState(false);
+
+  useEffect(() => {
+    if (linksRaw) {
+      try { setLinks(JSON.parse(linksRaw)); } catch {}
+    } else if (linksRaw === null) {
+      setLinks([
+        { name: "University of Zurich", link: "https://uzh.ch/de.html" },
+        { name: "SIAF", link: "https://www.siaf.uzh.ch/" },
+      ]);
+    }
+  }, [linksRaw]);
+
+  const saveLinks = async () => {
+    await upsert({ token, key: "footerLinks", value: JSON.stringify(links) });
+    setLinksSaved(true);
+    setTimeout(() => setLinksSaved(false), 2000);
+  };
+
+  return (
+    <div className="space-y-12">
+      <h2 className="text-xl font-semibold">Settings</h2>
+
+      {/* Social links */}
+      <div className="space-y-4">
+        <h3 className="text-base font-semibold border-b pb-2">Social media links</h3>
+        <Field label="Twitter / X URL">
+          <input className={input} value={social.twitter} onChange={e => setSocial(s => ({ ...s, twitter: e.target.value }))} placeholder="https://twitter.com/..." />
+        </Field>
+        <Field label="GitHub URL">
+          <input className={input} value={social.github} onChange={e => setSocial(s => ({ ...s, github: e.target.value }))} placeholder="https://github.com/..." />
+        </Field>
+        <Field label="Bluesky URL">
+          <input className={input} value={social.bluesky} onChange={e => setSocial(s => ({ ...s, bluesky: e.target.value }))} placeholder="https://bsky.app/profile/..." />
+        </Field>
+        <div className="flex items-center gap-3">
+          <button className={btnPrimary} onClick={saveSocial}>Save</button>
+          {socialSaved && <span className="text-sm text-green-600">Saved!</span>}
+        </div>
+        <p className="text-xs text-gray-400">Leave a field empty to hide that icon in the footer.</p>
+      </div>
+
+      {/* Footer external links */}
+      <div className="space-y-4">
+        <h3 className="text-base font-semibold border-b pb-2">Footer links</h3>
+        {links.map((link, i) => (
+          <div key={i} className="flex gap-3 items-center">
+            <input className={`${input} flex-1`} placeholder="Label" value={link.name}
+              onChange={e => { const next = [...links]; next[i] = { ...next[i], name: e.target.value }; setLinks(next); }} />
+            <input className={`${input} flex-1`} placeholder="URL" value={link.link}
+              onChange={e => { const next = [...links]; next[i] = { ...next[i], link: e.target.value }; setLinks(next); }} />
+            <button className={btnDanger} onClick={() => setLinks(links.filter((_, j) => j !== i))}>×</button>
+          </div>
+        ))}
+        <button className={btnSecondary} onClick={() => setLinks([...links, { name: "", link: "" }])}>+ Add link</button>
+        <div className="flex items-center gap-3">
+          <button className={btnPrimary} onClick={saveLinks}>Save</button>
+          {linksSaved && <span className="text-sm text-green-600">Saved!</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main admin page ────────────────────────────────────────────────────────────
 
-const TABS = ["Team", "Publications", "Research", "Open Positions", "Pages"] as const;
+const TABS = ["Team", "Publications", "Research", "Open Positions", "Pages", "Settings"] as const;
 type Tab = typeof TABS[number];
 
 export default function AdminPage() {
@@ -710,6 +799,7 @@ export default function AdminPage() {
         {tab === "Research" && <ResearchAdmin token={token} />}
         {tab === "Open Positions" && <OpenPositionsAdmin token={token} />}
         {tab === "Pages" && <PagesAdmin token={token} />}
+        {tab === "Settings" && <SettingsAdmin token={token} />}
       </div>
     </div>
   );

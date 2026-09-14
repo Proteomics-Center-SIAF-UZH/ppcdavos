@@ -44,6 +44,11 @@ export default defineSchema({
     isActive: v.boolean(),
   }),
 
+  siteSettings: defineTable({
+    key: v.string(),
+    value: v.string(), // JSON string
+  }).index("by_key", ["key"]),
+
   siteContent: defineTable({
     key: v.string(),
     paragraphs: v.array(v.string()),
