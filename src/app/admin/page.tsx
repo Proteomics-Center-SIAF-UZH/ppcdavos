@@ -154,7 +154,7 @@ function TeamAdmin({ token }: { token: string }) {
       isVisiting: form.isVisiting,
       sortOrder: form.sortOrder,
       image: imageStorageId || undefined,
-      bio: form.bio || undefined,
+      bio: form.bio,
     };
     if (editing) {
       await updateMember({ ...data, id: editing._id });

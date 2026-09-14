@@ -76,9 +76,9 @@ export const update = mutation({
     sortOrder: v.optional(v.number()),
     bio: v.optional(v.string()),
   },
-  handler: async (ctx, { token, id, ...data }) => {
+  handler: async (ctx, { token, id, bio, ...data }) => {
     await requireAuth(ctx, token);
-    await ctx.db.patch(id, data);
+    await ctx.db.patch(id, { ...data, bio: bio || undefined });
   },
 });
 
