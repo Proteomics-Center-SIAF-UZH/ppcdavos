@@ -35,7 +35,15 @@ export const getBySlug = query({
       (m) => m.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") === slug
     );
     if (!member) return null;
-    return { ...member, imageUrl: await resolveImage(ctx, member.image) };
+    const imageUrl = await resolveImage(ctx, member.image);
+    let imageSource: string | undefined;
+    if (member.image && !member.image.includes(".") && !member.image.startsWith("http")) {
+      const imgRecord = await ctx.db.query("images")
+        .filter((q) => q.eq(q.field("storageId"), member.image))
+        .first();
+      imageSource = imgRecord?.source;
+    }
+    return { ...member, imageUrl, imageSource };
   },
 });
 

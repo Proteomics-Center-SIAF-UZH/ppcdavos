@@ -10,6 +10,7 @@ export default async function MemberPage({ params }: { params: { slug: string } 
   if (!member) notFound();
 
   const imageUrl = (member as any).imageUrl as string | null | undefined;
+  const imageSource = (member as any).imageSource as string | undefined;
   const allNames = [member.name, ...(member.otherNames ?? [])];
   const publications = await fetchQuery(api.publications.getByAuthor, { names: allNames });
   const initials = member.name.split(" ").slice(0, 2).map((w: string) => w[0]).join("");
@@ -32,6 +33,9 @@ export default async function MemberPage({ params }: { params: { slug: string } 
                 style={{ backgroundImage: `url(${imageUrl})` }} />
             )}
           </div>
+          {imageSource && (
+            <p className="text-xs text-gray-400 mt-1.5 text-center">{imageSource}</p>
+          )}
         </div>
 
         {/* Identity */}
