@@ -23,7 +23,7 @@ const LinkItem = ({ name, href }: { name: string; href: string }) => {
 
 const Navigation = () => {
   return (
-    <div className="sticky top-0 z-50 flex flex-col sm:flex-row sm:flex-nowrap justify-between items-center px-16 py-6 bg-sky-950 text-white shadow-md">
+    <div className="flex flex-col sm:flex-row sm:flex-nowrap justify-between items-center px-16 py-6 bg-sky-950 text-white shadow-md">
       <a href="/" className="flex flex-col mb-4 sm:mb-0">
         <h1 className="text-xl font-bold tracking-tight leading-tight">
           Precision Proteomics Center Davos
