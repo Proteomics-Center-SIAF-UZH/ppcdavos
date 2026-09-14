@@ -32,7 +32,7 @@ export default async function Research() {
         {research.map(({ title, textBlocks, imageSrc, imageAlt }, index) => {
           const textContent = (
             <>
-              {textBlocks.map((text, i) => (
+              {(textBlocks as string[]).map((text, i) => (
                 <p key={i}>{parseTextWithLinks(text)}</p>
               ))}
             </>
