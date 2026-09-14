@@ -23,7 +23,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: #334155; /* slate-700 — consistent body text across all pages */
   background: rgb(var(--background-start-rgb));
   font-size: 17px;
   line-height: 1.75;

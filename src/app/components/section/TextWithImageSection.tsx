@@ -21,7 +21,7 @@ export const TextWithImageSection = ({
       {/* Image on the right */}
       <div className="md:w-1/2 px-0 py-4 md:px-4 md:py-0">
         <img
-          className="max-w-full h-auto mx-0"
+          className="max-w-full h-auto mx-0 rounded-xl shadow-sm"
           src={imgSrc}
           alt={imgAlt}
           style={{ maxWidth: "100%", height: "auto" }}

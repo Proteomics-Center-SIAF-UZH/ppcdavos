@@ -14,7 +14,7 @@ export default async function Research() {
   let sectionCount = 0;
 
   return (
-    <div className="gap-y-8">
+    <div className="space-y-0">
       <PageHeader title="Research" />
       <div className="space-y-20">
         {research.map(({ title, textBlocks, imageSrc, imageAlt }, index) => {
