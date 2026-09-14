@@ -28,7 +28,7 @@ const Navigation = () => {
         <h1 className="text-xl font-bold tracking-tight leading-tight">
           Precision Proteomics Center Davos
         </h1>
-        <span className="text-xs text-sky-300 tracking-wide mt-0.5">
+        <span className="text-xs text-gray-400 tracking-wide mt-0.5">
           University of Zurich · SIAF
         </span>
       </a>
