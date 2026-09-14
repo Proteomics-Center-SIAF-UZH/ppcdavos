@@ -17,6 +17,7 @@ const AboutUs = async () => {
   const paragraphs = content?.paragraphs?.length ? content.paragraphs : DEFAULT_PARAGRAPHS;
   const imageUrl = (content as any)?.imageUrl ?? "/images/about_us.jpg";
   const imageAlt = content?.imageAlt ?? "About us";
+  const imageSource = (content as any)?.imageSource as string | undefined;
 
   return (
     <div className="grow">
@@ -24,6 +25,7 @@ const AboutUs = async () => {
       <TextWithImageSection
         imgSrc={imageUrl}
         imgAlt={imageAlt}
+        credit={imageSource}
         text={
           <>
             {paragraphs.map((p, i) => <p key={i}>{parseLinks(p)}</p>)}

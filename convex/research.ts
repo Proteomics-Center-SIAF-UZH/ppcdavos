@@ -14,10 +14,17 @@ export const list = query({
     const items = await ctx.db.query("research").collect();
     const sorted = items.sort((a: any, b: any) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
     return await Promise.all(
-      sorted.map(async (r: any) => ({
-        ...r,
-        imageSrc: await resolveImage(ctx, r.image),
-      }))
+      sorted.map(async (r: any) => {
+        const imageSrc = await resolveImage(ctx, r.image);
+        let imageSource: string | undefined;
+        if (r.image && !r.image.startsWith("http") && !r.image.startsWith("/")) {
+          const imgRecord = await ctx.db.query("images")
+            .filter((q: any) => q.eq(q.field("storageId"), r.image))
+            .first();
+          imageSource = imgRecord?.source;
+        }
+        return { ...r, imageSrc, imageSource };
+      })
     );
   },
 });

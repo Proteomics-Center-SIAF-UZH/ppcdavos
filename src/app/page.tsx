@@ -16,6 +16,7 @@ export default async function Home() {
   const paragraphs = content?.paragraphs?.length ? content.paragraphs : DEFAULT_PARAGRAPHS;
   const imageUrl = (content as any)?.imageUrl ?? "/images/siaf_birdview.png";
   const imageAlt = content?.imageAlt ?? "SIAF campus in Davos";
+  const imageSource = (content as any)?.imageSource as string | undefined;
 
   return (
     <div className="space-y-10">
@@ -24,6 +25,9 @@ export default async function Home() {
           <img src={imageUrl} alt={imageAlt} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
         </div>
+        {imageSource && (
+          <p className="text-xs text-gray-400 italic text-right mt-1">© {imageSource}</p>
+        )}
       </FadeIn>
 
       <FadeIn delay={150}>

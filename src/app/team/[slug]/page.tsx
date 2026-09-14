@@ -34,7 +34,7 @@ export default async function MemberPage({ params }: { params: { slug: string } 
             )}
           </div>
           {imageSource && (
-            <p className="text-xs text-gray-400 mt-1.5 text-center">{imageSource}</p>
+            <p className="text-xs text-gray-400 italic mt-1.5 text-right">© {imageSource}</p>
           )}
         </div>
 

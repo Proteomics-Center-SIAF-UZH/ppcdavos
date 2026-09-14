@@ -12,14 +12,19 @@ export const getByKey = query({
       .first();
     if (!content) return null;
     let imageUrl: string | null = null;
+    let imageSource: string | undefined;
     if (content.image) {
       if (content.image.startsWith("http") || content.image.startsWith("/")) {
         imageUrl = content.image;
       } else {
         imageUrl = await ctx.storage.getUrl(content.image as Id<"_storage">);
+        const imgRecord = await ctx.db.query("images")
+          .filter((q) => q.eq(q.field("storageId"), content.image))
+          .first();
+        imageSource = imgRecord?.source;
       }
     }
-    return { ...content, imageUrl };
+    return { ...content, imageUrl, imageSource };
   },
 });
 

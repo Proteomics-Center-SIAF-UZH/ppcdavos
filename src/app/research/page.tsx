@@ -17,7 +17,7 @@ export default async function Research() {
     <div className="space-y-0">
       <PageHeader title="Research" />
       <div className="space-y-20">
-        {research.map(({ title, textBlocks, imageSrc, imageAlt }, index) => {
+        {research.map(({ title, textBlocks, imageSrc, imageAlt, imageSource }: any, index: number) => {
           if (title) sectionCount++;
           const num = sectionCount;
 
@@ -41,7 +41,7 @@ export default async function Research() {
           return imageSrc && imageAlt ? (
             <FadeIn key={index}>
               {titleEl}
-              <TextWithImageSection text={textContent} imgSrc={imageSrc} imgAlt={imageAlt} />
+              <TextWithImageSection text={textContent} imgSrc={imageSrc} imgAlt={imageAlt} credit={imageSource} />
             </FadeIn>
           ) : (
             <FadeIn key={index}>

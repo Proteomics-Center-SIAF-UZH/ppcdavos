@@ -5,20 +5,20 @@ export const TextWithImageSection = ({
   text,
   imgSrc,
   imgAlt,
+  credit,
 }: {
   title?: string;
   text: ReactNode;
   imgSrc: string;
   imgAlt: string;
+  credit?: string;
 }) => (
   <div>
     {!!title && <h2 className="text-2xl mb-6">{title}</h2>}
     <div className="flex flex-col md:flex-row items-start">
-      {/* Text on the left */}
       <div className="md:w-1/2 pr-4">
         <div className="text-slate-700 space-y-4">{text}</div>
       </div>
-      {/* Image on the right */}
       <div className="md:w-1/2 px-0 py-4 md:px-4 md:py-0">
         <img
           className="max-w-full h-auto mx-0 rounded-xl shadow-sm"
@@ -26,6 +26,9 @@ export const TextWithImageSection = ({
           alt={imgAlt}
           style={{ maxWidth: "100%", height: "auto" }}
         />
+        {credit && (
+          <p className="text-xs text-gray-400 italic text-right mt-1">© {credit}</p>
+        )}
       </div>
     </div>
   </div>
