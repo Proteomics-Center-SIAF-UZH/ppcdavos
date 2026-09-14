@@ -3,13 +3,6 @@ import { api } from "../../convex/_generated/api";
 import { parseLinks } from "./utils/parseLinks";
 import { FadeIn } from "./components/FadeIn";
 
-const Stat = ({ value, label }: { value: number; label: string }) => (
-  <div className="text-center">
-    <div className="text-3xl font-bold text-sky-950">{value}</div>
-    <div className="text-sm text-gray-500 mt-1">{label}</div>
-  </div>
-);
-
 export const revalidate = 60;
 
 const DEFAULT_PARAGRAPHS = [
@@ -19,18 +12,7 @@ const DEFAULT_PARAGRAPHS = [
 ];
 
 export default async function Home() {
-  const [content, teamMembers, publications, research] = await Promise.all([
-    fetchQuery(api.siteContent.getByKey, { key: "home" }).catch(() => null),
-    fetchQuery(api.team.list).catch(() => []),
-    fetchQuery(api.publications.list).catch(() => []),
-    fetchQuery(api.research.list).catch(() => []),
-  ]);
-
-  const stats = {
-    publications: publications.length,
-    members: teamMembers.filter((m: any) => !m.isAlumni).length,
-    researchAreas: (research as any[]).filter((r) => r.title).length,
-  };
+  const content = await fetchQuery(api.siteContent.getByKey, { key: "home" }).catch(() => null);
   const paragraphs = content?.paragraphs?.length ? content.paragraphs : DEFAULT_PARAGRAPHS;
   const imageUrl = (content as any)?.imageUrl ?? "/images/siaf_birdview.png";
   const imageAlt = content?.imageAlt ?? "SIAF campus in Davos";
@@ -57,14 +39,6 @@ export default async function Home() {
       </FadeIn>
 
       <FadeIn delay={300}>
-        <div className="grid grid-cols-3 gap-6 py-6 border-y border-gray-100 max-w-sm">
-          <Stat value={stats.publications} label="Publications" />
-          <Stat value={stats.members} label="Team members" />
-          <Stat value={stats.researchAreas} label="Research areas" />
-        </div>
-      </FadeIn>
-
-      <FadeIn delay={400}>
         <div className="text-slate-700 space-y-4 max-w-3xl leading-relaxed">
           {paragraphs.map((p, i) => <p key={i}>{parseLinks(p)}</p>)}
         </div>

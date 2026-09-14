@@ -31,7 +31,6 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-lora), Georgia, serif;
   letter-spacing: -0.02em;
 }
 
