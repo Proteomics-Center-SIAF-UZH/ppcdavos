@@ -2,44 +2,35 @@
 
 ## About This Site
 
-The official website of the **Precision Proteomics Center Davos**, built with **Next.js**, **React**, and **TypeScript**, and hosted on **Vercel**.
+The official website of the **Precision Proteomics Center Davos**, built with **Next.js**, **React**, **TypeScript**, and **Convex**, hosted on **Vercel**.
 
 - **Production:** [https://precisionproteomics.uzh.ch](https://precisionproteomics.uzh.ch)
-- **Vercel dashboard:** [vercel.com](https://vercel.com) (log in with your Vercel account)
+- **Admin panel:** https://precisionproteomics.uzh.ch/admin
+- **Vercel dashboard:** [vercel.com](https://vercel.com)
+- **Convex dashboard:** [convex.dev](https://convex.dev)
 
-Every push to the `main` branch automatically triggers a new deployment on Vercel. Changes go live within ~1 minute.
+Every push to `main` automatically triggers a new deployment on Vercel. Changes go live within ~1 minute.
 
 ---
 
-## Editing Content
+## Managing Content
 
-All content is managed in a **Google Sheet** — no coding required.
+All content is managed through the **admin panel** at `/admin`. Log in with the admin password set in the Convex dashboard.
 
-[Open the Google Sheet →](https://docs.google.com/spreadsheets/d/e/2PACX-1vQWunO92NxSnFVWEb7e4dV4a8saxxdr8VKfR4rKmKb0s4JCxA6UOEdM0N1zx1tX6VodaGG9COZQ5ngq/pubhtml)
-
-| Tab | What it controls |
+| Section | What you can do |
 |---|---|
-| `team` | Team members and alumni — set `isAlumni` to `TRUE` to move someone to the alumni section |
-| `publications` | Publications list — authors are semicolon-separated |
-| `research` | Research area descriptions — text paragraphs separated by `\|\|\|` |
-| `openPositions` | Open positions — set `isActive` to `TRUE` to show a position on the site |
+| **Team** | Add/edit/remove members, upload photos, write bios, mark as alumni |
+| **Publications** | Add/edit/remove publications, authors are auto-bolded if they match a team member name |
+| **Research** | Add/edit/remove research areas and their descriptions |
+| **Open Positions** | Add/edit/remove positions, toggle active/inactive to show or hide on the site |
 
-Changes to the sheet appear on the site within **5 minutes** automatically. No redeploy needed.
+### Bolding authors in publications
 
-> **Tip:** If you need changes to appear immediately, go to the Vercel dashboard → Deployments → `...` → **Redeploy**.
+In the Team admin, the **Other names** field is used to match publication author names. For example, if Christoph publishes as "Christoph B. Messner" but his team name is "Christoph Messner", add "Christoph B. Messner" to his Other names. This also determines which publications appear on his personal page.
 
----
+### Member photos
 
-## Adding or Updating Member Photos
-
-Photos are stored in `public/images/members/` in this repository. The filename must match the `image` field in the Google Sheet (e.g. `christoph.jpeg`).
-
-To add a photo:
-1. Go to the [members folder on GitHub](https://github.com/Proteomics-Center-SIAF-UZH/ppcdavos/tree/main/public/images/members)
-2. Click **Add file** → **Upload files**
-3. Upload the photo and commit — Vercel will redeploy automatically
-
-Recommended: square crop, at least 200×200px, JPEG format.
+Upload photos through the admin panel: **Team → Edit → Photo → upload file → Save**. Photos are stored in Convex Storage — no files need to be added to the repo.
 
 ---
 
@@ -47,18 +38,35 @@ Recommended: square crop, at least 200×200px, JPEG format.
 
 ```bash
 npm install
-npm run dev       # available at localhost:3000
+npx convex dev   # starts Convex dev backend (keep running in a separate terminal)
+npm run dev      # starts Next.js at localhost:3000
 ```
 
+---
+
+## Deploying Convex Changes
+
+When you modify files in `convex/`, you need to:
+
 ```bash
-npm run build     # production build
+# 1. Regenerate TypeScript types and commit them
+npx convex dev --once
+git add convex/_generated/
+git commit -m "Regenerate Convex types"
+git push
+
+# 2. Deploy functions to production
+npx convex deploy
 ```
+
+Next.js code changes (anything outside `convex/`) deploy automatically via Vercel on every `git push`.
 
 ---
 
 ## How It Works
 
-- **Hosting:** Vercel — connected to this GitHub repo, auto-deploys on every push to `main`
-- **Content:** Fetched from Google Sheets at request time and cached for 5 minutes (ISR)
+- **Hosting:** Vercel — auto-deploys on every push to `main`
+- **Backend & database:** Convex — stores all content (team, publications, research, open positions) and image files
+- **Admin auth:** Password stored as a Convex environment variable (`ADMIN_PASSWORD`)
 - **Domain:** `precisionproteomics.uzh.ch` — DNS managed by UZH IT (Claudio Rhyner)
 - **TLS:** Automatic via Vercel + Let's Encrypt
