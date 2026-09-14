@@ -101,7 +101,7 @@ type TeamMember = {
 
 const emptyMember = {
   name: "", otherNames: "", prefix: "", title: "Doctoral candidate",
-  email: "", telephone: "", isAlumni: false, isVisiting: false, sortOrder: 0, bio: "",
+  email: "", telephone: "", isAlumni: false, isVisiting: false, bio: "", linkedin: "",
 };
 
 function TeamAdmin({ token }: { token: string }) {
@@ -126,7 +126,7 @@ function TeamAdmin({ token }: { token: string }) {
       name: m.name, otherNames: (m.otherNames ?? []).join(", "),
       prefix: m.prefix ?? "", title: m.title, email: m.email,
       telephone: m.telephone ?? "", isAlumni: m.isAlumni ?? false,
-      isVisiting: m.isVisiting ?? false, sortOrder: m.sortOrder ?? 0, bio: (m as any).bio ?? "",
+      isVisiting: m.isVisiting ?? false, bio: (m as any).bio ?? "", linkedin: (m as any).linkedin ?? "",
     });
     setImageStorageId(m.image ?? "");
     scrollToForm();
@@ -152,9 +152,9 @@ function TeamAdmin({ token }: { token: string }) {
       telephone: form.telephone,
       isAlumni: form.isAlumni,
       isVisiting: form.isVisiting,
-      sortOrder: form.sortOrder,
       image: imageStorageId || undefined,
       bio: form.bio,
+      linkedin: form.linkedin,
     };
     if (editing) {
       await updateMember({ ...data, id: editing._id });
@@ -198,7 +198,7 @@ function TeamAdmin({ token }: { token: string }) {
             </Field>
             <Field label="Email *"><input className={input} type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} /></Field>
             <Field label="Telephone"><input className={input} value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} /></Field>
-            <Field label="Sort order"><input className={input} type="number" value={form.sortOrder} onChange={e => setForm(f => ({ ...f, sortOrder: Number(e.target.value) }))} /></Field>
+            <Field label="LinkedIn URL"><input className={input} value={form.linkedin} onChange={e => setForm(f => ({ ...f, linkedin: e.target.value }))} placeholder="https://linkedin.com/in/..." /></Field>
             <Field label="Photo">
               <ImagePicker currentStorageId={imageStorageId} onSelect={setImageStorageId} token={token} />
             </Field>
