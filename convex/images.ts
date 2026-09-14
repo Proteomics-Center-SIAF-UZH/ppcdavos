@@ -28,6 +28,19 @@ export const add = mutation({
   },
 });
 
+export const update = mutation({
+  args: {
+    token: v.string(),
+    id: v.id("images"),
+    title: v.string(),
+    source: v.optional(v.string()),
+  },
+  handler: async (ctx, { token, id, title, source }) => {
+    await requireAuth(ctx, token);
+    await ctx.db.patch(id, { title, source: source || undefined });
+  },
+});
+
 export const remove = mutation({
   args: { token: v.string(), id: v.id("images") },
   handler: async (ctx, { token, id }) => {

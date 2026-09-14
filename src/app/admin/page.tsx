@@ -778,7 +778,9 @@ function ImagePicker({ currentStorageId, onSelect, token }: {
 function ImagesAdmin({ token }: { token: string }) {
   const images = useQuery(api.images.list) ?? [];
   const addImage = useMutation(api.images.add);
+  const updateImage = useMutation(api.images.update);
   const removeImage = useMutation(api.images.remove);
+  const [editingImage, setEditingImage] = useState<{ id: string; title: string; source: string } | null>(null);
   const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
 
   const [form, setForm] = useState({ title: "", source: "" });
@@ -849,15 +851,37 @@ function ImagesAdmin({ token }: { token: string }) {
               <div className="aspect-video bg-gray-100 overflow-hidden">
                 <img src={img.url} className="w-full h-full object-cover" alt={img.title} />
               </div>
-              <div className="p-3 space-y-1">
-                <p className="font-medium text-sm">{img.title}</p>
-                {img.source && <p className="text-xs text-gray-400">{img.source}</p>}
-                <button
-                  className={`${btnDanger} text-xs mt-2`}
-                  onClick={() => { if (window.confirm(`Delete "${img.title}"?`)) removeImage({ token, id: img._id }); }}
-                >
-                  Delete
-                </button>
+              <div className="p-3 space-y-2">
+                {editingImage?.id === img._id && editingImage ? (
+                  <div className="space-y-2">
+                    <input className={`${input} text-sm`} value={editingImage.title}
+                      onChange={e => setEditingImage(ei => ei && ({ ...ei, title: e.target.value }))} placeholder="Title" />
+                    <input className={`${input} text-sm`} value={editingImage.source}
+                      onChange={e => setEditingImage(ei => ei && ({ ...ei, source: e.target.value }))} placeholder="Source / credit (optional)" />
+                    <div className="flex gap-2">
+                      <button className={`${btnPrimary} text-xs`} onClick={async () => {
+                        await updateImage({ token, id: img._id, title: editingImage.title, source: editingImage.source || undefined });
+                        setEditingImage(null);
+                      }}>Save</button>
+                      <button className={`${btnSecondary} text-xs`} onClick={() => setEditingImage(null)}>Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <p className="font-medium text-sm">{img.title}</p>
+                    {img.source && <p className="text-xs text-gray-400">{img.source}</p>}
+                    <div className="flex gap-2 mt-1">
+                      <button className={`${btnSecondary} text-xs`}
+                        onClick={() => setEditingImage({ id: img._id, title: img.title, source: img.source ?? "" })}>
+                        Edit
+                      </button>
+                      <button className={`${btnDanger} text-xs`}
+                        onClick={() => { if (window.confirm(`Delete "${img.title}"?`)) removeImage({ token, id: img._id }); }}>
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           ))}
