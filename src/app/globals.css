@@ -35,10 +35,6 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* Keep form inputs in sans-serif for readability */
-input, select, textarea, button {
-  font-family: var(--font-inter), system-ui, sans-serif;
-}
 
 .image-fit {
   object-fit: cover;
