@@ -15,7 +15,20 @@ export const list = query({
     const members = await ctx.db
       .query("team")
       .collect();
-    const sorted = members.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    const titleOrder: Record<string, number> = {
+      "Professor": 0,
+      "Lab manager": 1,
+      "Lab technician": 2,
+      "Post doctoral researcher": 3,
+      "Doctoral candidate": 4,
+      "Visiting PhD student": 5,
+    };
+    const sorted = members.sort((a: any, b: any) => {
+      const aOrder = titleOrder[a.title] ?? 99;
+      const bOrder = titleOrder[b.title] ?? 99;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.name.localeCompare(b.name);
+    });
     return await Promise.all(
       sorted.map(async (m: any) => ({
         ...m,
