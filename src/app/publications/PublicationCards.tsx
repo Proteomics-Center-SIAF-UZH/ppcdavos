@@ -28,9 +28,7 @@ const Publication = ({
         );
       })}
     </p>
-    <p className="text-gray-500 flex flex-wrap justify-between pr-2">
-      <div>{journal}</div>
-    </p>
+    <p className="text-xs uppercase tracking-wider text-gray-400 font-medium">{journal}</p>
   </div>
 );
 
@@ -40,7 +38,7 @@ const PublicationInYear = ({
   year: number; publications: PublicationType[]; teamMemberNames: string[];
 }) => (
   <div className="space-y-10">
-    <h3 className="text-xl font-semibold">{year}</h3>
+    <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400">{year}</h3>
     {publications.map((pub, i) => (
       <Publication {...pub} year={year} key={`${year}-${i}`} teamMemberNames={teamMemberNames} />
     ))}

@@ -28,7 +28,7 @@ const MemberCard = ({ member, index }: { member: any; index: number }) => {
       className={`transition-all duration-700 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
     >
       <a href={`/team/${slug}`} className="group">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm group-hover:shadow-md transition-all duration-200 p-5 flex flex-col items-center text-center space-y-3 h-full">
+        <div className="bg-white rounded-2xl border border-gray-100 transition-all duration-200 p-5 flex flex-col items-center text-center space-y-3 h-full" style={{ boxShadow: "0 2px 12px -2px rgba(15,23,42,0.08), 0 1px 3px -1px rgba(15,23,42,0.06)" }}>
           <div className="relative w-24 h-24 flex-shrink-0">
             <div className="w-24 h-24 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-2xl font-semibold">
               {initials}
@@ -46,7 +46,7 @@ const MemberCard = ({ member, index }: { member: any; index: number }) => {
               {member.name}
               {member.isVisiting ? " (visiting)" : ""}
             </p>
-            <p className="text-xs text-gray-400">{member.title}</p>
+            <p className="text-xs uppercase tracking-wider text-gray-400 font-medium">{member.title}</p>
           </div>
           <a
             href={`mailto:${member.email}`}

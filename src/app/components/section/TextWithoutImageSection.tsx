@@ -9,6 +9,6 @@ export const TextWithoutImageSection = ({
 }) => (
   <div>
     {!!title && (<h2 className="text-2xl mb-6">{title}</h2>)}
-    <div className="text-slate-700 space-y-4">{text}</div>
+    <div className="text-slate-700 space-y-4 max-w-[65ch]">{text}</div>
   </div >
 );

@@ -20,11 +20,10 @@ export default async function Home() {
   return (
     <div className="space-y-10">
       <FadeIn>
-        <img
-          src={imageUrl}
-          alt={imageAlt}
-          className="w-full h-72 object-cover rounded-2xl shadow-md"
-        />
+        <div className="relative w-full h-72 rounded-2xl overflow-hidden shadow-md">
+          <img src={imageUrl} alt={imageAlt} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        </div>
       </FadeIn>
 
       <FadeIn delay={150}>
@@ -39,7 +38,7 @@ export default async function Home() {
       </FadeIn>
 
       <FadeIn delay={300}>
-        <div className="text-slate-700 space-y-4 max-w-3xl leading-relaxed">
+        <div className="text-slate-700 space-y-4 max-w-[65ch] leading-relaxed">
           {paragraphs.map((p, i) => <p key={i}>{parseLinks(p)}</p>)}
         </div>
       </FadeIn>
