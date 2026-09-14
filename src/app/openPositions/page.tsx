@@ -13,11 +13,18 @@ export default async function OpenPositions() {
     <div className="space-y-6">
       <PageHeader title="Open Positions" />
       {active.length === 0 ? (
-        <p className="text-slate-500 italic">
-          There are no open positions at the moment. Please check back later.
-        </p>
+        <div className="space-y-4 text-slate-700">
+          <p>
+            Unfortunately, we do not have any open positions at the moment. To learn
+            more about the Precision Proteomics Center, please check out our other pages.
+          </p>
+        </div>
       ) : (
         <div className="space-y-6">
+          <p className="text-slate-700">
+            Join our team and contribute to cutting-edge proteomics research. We offer
+            exciting opportunities for researchers at all career stages.
+          </p>
           {active.map((position, index) => (
             <OpenPositionCard key={index} {...position} />
           ))}
