@@ -20,7 +20,7 @@ const AboutUs = async () => {
 
   return (
     <div className="grow">
-      <PageHeader title="About Us" subtitle="Precision Proteomics Center Davos · University of Zurich · SIAF" />
+      <PageHeader title="About Us" />
       <TextWithImageSection
         imgSrc={imageUrl}
         imgAlt={imageAlt}

@@ -20,7 +20,7 @@ const Services = async () => {
 
   return (
     <div>
-      <PageHeader title="Services" subtitle="Proteomics as a service — from sample processing to data interpretation." />
+      <PageHeader title="Services" />
       <TextWithoutImageSection
         text={
           <>

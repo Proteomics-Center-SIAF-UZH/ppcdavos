@@ -28,7 +28,7 @@ export default async function OpenPositions() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Open Positions" subtitle="Join our team and contribute to cutting-edge proteomics research." />
+      <PageHeader title="Open Positions" />
       <div className="mb-8">
         <p className="text-slate-700">
           We offer exciting opportunities for researchers at all career stages.
