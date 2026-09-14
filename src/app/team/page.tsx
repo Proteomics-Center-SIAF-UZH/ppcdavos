@@ -32,7 +32,7 @@ export default async function Team() {
   const doctoralCandidates = active.filter((m) => m.title === Title.DOCTORAL_CANDIDATE);
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-20">
       <PageHeader title="Team" />
       <Section title={professors.length > 1 ? "Group leads" : "Group lead"} members={professors} />
       <Section title={labManagers.length > 1 ? "Lab managers" : "Lab manager"} members={labManagers} />

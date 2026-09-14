@@ -15,7 +15,7 @@ export default async function Research() {
   return (
     <div className="gap-y-8">
       <PageHeader title="Research" />
-      <div className="space-y-14">
+      <div className="space-y-20">
         {research.map(({ title, textBlocks, imageSrc, imageAlt }, index) => {
           if (title) sectionCount++;
           const num = sectionCount;
