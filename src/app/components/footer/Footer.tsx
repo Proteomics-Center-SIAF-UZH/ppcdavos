@@ -46,9 +46,10 @@ const Footer = async () => {
         </div>
         <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-400">
-            © {new Date().getFullYear()} Precision Proteomics Center Davos
-          </span>
+          <div className="flex items-center gap-4 text-sm text-gray-400">
+            <span>© {new Date().getFullYear()} Precision Proteomics Center Davos</span>
+            <a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a>
+          </div>
           <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
             {social.twitter && (
               <a href={social.twitter} target="_blank" className="hover:text-gray-300">

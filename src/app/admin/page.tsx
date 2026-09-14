@@ -602,6 +602,7 @@ const PAGE_KEYS = [
   { key: "home", label: "Home", hasImage: true },
   { key: "aboutUs", label: "About Us", hasImage: true },
   { key: "services", label: "Services", hasImage: false },
+  { key: "datenschutz", label: "Datenschutz", hasImage: false },
 ] as const;
 
 type PageKey = typeof PAGE_KEYS[number]["key"];
