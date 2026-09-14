@@ -1,17 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Member } from "../content/types";
 
 const MemberAvatar = ({ imageUrl, name }: { imageUrl?: string | null; name: string }) => {
-  const [broken, setBroken] = useState(false);
-  const initials = name
-    .split(" ")
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("");
+  const [broken, setBroken] = useState(!imageUrl);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const initials = name.split(" ").slice(0, 2).map((w) => w[0]).join("");
 
-  if (!imageUrl || broken) {
+  useEffect(() => {
+    if (imgRef.current && imgRef.current.complete && imgRef.current.naturalWidth === 0) {
+      setBroken(true);
+    }
+  }, []);
+
+  if (broken) {
     return (
       <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center text-xs font-semibold flex-shrink-0">
         {initials}
@@ -21,7 +24,8 @@ const MemberAvatar = ({ imageUrl, name }: { imageUrl?: string | null; name: stri
 
   return (
     <img
-      src={imageUrl}
+      ref={imgRef}
+      src={imageUrl!}
       alt={name}
       className="w-8 h-8 rounded-full object-cover flex-shrink-0"
       onError={() => setBroken(true)}
