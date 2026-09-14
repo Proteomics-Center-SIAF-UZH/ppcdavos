@@ -60,10 +60,9 @@ const MemberCard = ({ member, index }: { member: any; index: number }) => {
             <p className="font-semibold text-gray-900 text-sm leading-snug group-hover:text-sky-700 transition-colors">
               {member.prefix ? `${member.prefix.trim()} ` : ""}
               {member.name}
-              {member.isVisiting ? " (visiting)" : ""}
             </p>
             <p className="text-xs uppercase tracking-wider text-gray-400 font-medium mt-1">
-              {member.title}
+              {member.isVisiting ? `Visiting ${member.title}` : member.title}
             </p>
           </div>
         </div>

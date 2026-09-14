@@ -38,7 +38,7 @@ export default async function MemberPage({ params }: { params: { slug: string } 
         <div className="space-y-4 pt-2">
           <div>
             <p className="text-xs uppercase tracking-widest text-sky-700 font-medium mb-2">
-              {member.title}
+              {member.isVisiting ? `Visiting ${member.title}` : member.title}
             </p>
             <h1 className="text-4xl font-bold text-sky-950 leading-tight">
               {member.prefix ? `${member.prefix.trim()} ` : ""}{member.name}
