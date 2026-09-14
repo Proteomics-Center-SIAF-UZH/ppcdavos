@@ -9,6 +9,7 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as images from "../images.js";
 import type * as openPositions from "../openPositions.js";
 import type * as publications from "../publications.js";
 import type * as research from "../research.js";
@@ -25,6 +26,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  images: typeof images;
   openPositions: typeof openPositions;
   publications: typeof publications;
   research: typeof research;

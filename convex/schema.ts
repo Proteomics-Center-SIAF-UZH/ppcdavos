@@ -44,6 +44,12 @@ export default defineSchema({
     isActive: v.boolean(),
   }),
 
+  images: defineTable({
+    storageId: v.string(),
+    title: v.string(),
+    source: v.optional(v.string()),
+  }),
+
   siteSettings: defineTable({
     key: v.string(),
     value: v.string(), // JSON string

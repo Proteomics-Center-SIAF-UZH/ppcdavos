@@ -200,9 +200,7 @@ function TeamAdmin({ token }: { token: string }) {
             <Field label="Telephone"><input className={input} value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} /></Field>
             <Field label="Sort order"><input className={input} type="number" value={form.sortOrder} onChange={e => setForm(f => ({ ...f, sortOrder: Number(e.target.value) }))} /></Field>
             <Field label="Photo">
-              <input type="file" accept="image/*" className="text-sm" onChange={e => e.target.files?.[0] && handleImageUpload(e.target.files[0])} />
-              {uploading && <p className="text-xs text-gray-500">Uploading…</p>}
-              {imageStorageId && !uploading && <p className="text-xs text-green-600">✓ Photo set</p>}
+              <ImagePicker currentStorageId={imageStorageId} onSelect={setImageStorageId} token={token} />
             </Field>
           </div>
           <Field label="Bio">
@@ -392,6 +390,7 @@ function ResearchAdmin({ token }: { token: string }) {
   const [imageStorageId, setImageStorageId] = useState("");
   const [uploading, setUploading] = useState(false);
   const [localItems, setLocalItems] = useState<ResearchItem[]>([]);
+  const [orderSaved, setOrderSaved] = useState(false);
 
   useEffect(() => { if (items.length) setLocalItems(items); }, [items]);
 
@@ -405,6 +404,8 @@ function ResearchAdmin({ token }: { token: string }) {
     const reordered = arrayMove(localItems, oldIndex, newIndex);
     setLocalItems(reordered);
     await reorderItems({ token, ids: reordered.map(i => i._id) });
+    setOrderSaved(true);
+    setTimeout(() => setOrderSaved(false), 2000);
   };
 
   const openAdd = () => { setEditing(null); setForm(emptyResearch); setImageStorageId(""); };
@@ -440,9 +441,13 @@ function ResearchAdmin({ token }: { token: string }) {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Research Areas</h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl font-semibold">Research Areas</h2>
+          {orderSaved && <span className="text-sm text-green-600">Order saved!</span>}
+        </div>
         <button className={btnPrimary} onClick={openAdd}>+ Add area</button>
       </div>
+      <p className="text-xs text-gray-400">Drag the ⠿ handle to reorder — order saves automatically.</p>
 
       {editing !== undefined && (
         <div className="border rounded-xl p-6 bg-gray-50 space-y-4">
@@ -456,9 +461,7 @@ function ResearchAdmin({ token }: { token: string }) {
           </Field>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Image">
-              <input type="file" accept="image/*" className="text-sm" onChange={e => e.target.files?.[0] && handleImageUpload(e.target.files[0])} />
-              {uploading && <p className="text-xs text-gray-500">Uploading…</p>}
-              {imageStorageId && !uploading && <p className="text-xs text-green-600">✓ Image set</p>}
+              <ImagePicker currentStorageId={imageStorageId} onSelect={setImageStorageId} token={token} />
             </Field>
             <Field label="Image alt text"><input className={input} value={form.imageAlt} onChange={e => setForm(f => ({ ...f, imageAlt: e.target.value }))} /></Field>
           </div>
@@ -661,9 +664,7 @@ function PageEditor({ pageKey, label, hasImage, token }: { pageKey: PageKey; lab
       {hasImage && (
         <div className="grid grid-cols-2 gap-4">
           <Field label="Image">
-            <input type="file" accept="image/*" className="text-sm" onChange={e => e.target.files?.[0] && handleImageUpload(e.target.files[0])} />
-            {uploading && <p className="text-xs text-gray-500 mt-1">Uploading…</p>}
-            {imageStorageId && !uploading && <p className="text-xs text-green-600 mt-1">✓ Image set</p>}
+            <ImagePicker currentStorageId={imageStorageId} onSelect={setImageStorageId} token={token} />
           </Field>
           <Field label="Image alt text">
             <input className={input} value={imageAlt} onChange={e => setImageAlt(e.target.value)} />
@@ -701,6 +702,138 @@ function PagesAdmin({ token }: { token: string }) {
         ))}
       </div>
       <PageEditor key={activePage} pageKey={activePage} label={current.label} hasImage={current.hasImage} token={token} />
+    </div>
+  );
+}
+
+// ── Image library ─────────────────────────────────────────────────────────────
+
+function ImagePicker({ currentStorageId, onSelect, token }: {
+  currentStorageId: string;
+  onSelect: (storageId: string) => void;
+  token: string;
+}) {
+  const images = useQuery(api.images.list) ?? [];
+  const [open, setOpen] = useState(false);
+  const current = images.find((img: any) => img.storageId === currentStorageId);
+
+  return (
+    <div className="space-y-2">
+      {current ? (
+        <div className="flex items-center gap-3">
+          <img src={current.url ?? ""} className="w-16 h-16 object-cover rounded-lg border" alt={current.title} />
+          <div>
+            <p className="text-sm font-medium">{current.title}</p>
+            {current.source && <p className="text-xs text-gray-400">{current.source}</p>}
+            <button className="text-xs text-red-500 hover:underline mt-1" onClick={() => onSelect("")}>Remove</button>
+          </div>
+        </div>
+      ) : (
+        <p className="text-sm text-gray-400 italic">No image selected</p>
+      )}
+      <button className={btnSecondary} onClick={() => setOpen(true)}>
+        {current ? "Change image" : "Pick from library"}
+      </button>
+
+      {open && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setOpen(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold">Pick from image library</h3>
+              <button className="text-gray-400 hover:text-gray-700 text-xl" onClick={() => setOpen(false)}>×</button>
+            </div>
+            {images.length === 0 ? (
+              <p className="text-center text-gray-400 py-12">No images yet — add some in the Images tab.</p>
+            ) : (
+              <div className="grid grid-cols-3 gap-3">
+                {images.map((img: any) => (
+                  <button
+                    key={img._id}
+                    onClick={() => { onSelect(img.storageId); setOpen(false); }}
+                    className={`border-2 rounded-xl overflow-hidden text-left transition-all hover:border-sky-700 ${img.storageId === currentStorageId ? "border-sky-950" : "border-gray-100"}`}
+                  >
+                    <div className="aspect-video bg-gray-100 overflow-hidden">
+                      <img src={img.url} className="w-full h-full object-cover" alt={img.title} />
+                    </div>
+                    <div className="p-2">
+                      <p className="text-xs font-medium truncate">{img.title}</p>
+                      {img.source && <p className="text-xs text-gray-400 truncate">{img.source}</p>}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ImagesAdmin({ token }: { token: string }) {
+  const images = useQuery(api.images.list) ?? [];
+  const addImage = useMutation(api.images.add);
+  const removeImage = useMutation(api.images.remove);
+  const generateUploadUrl = useMutation(api.storage.generateUploadUrl);
+
+  const [form, setForm] = useState({ title: "", source: "" });
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = async (file: File) => {
+    if (!form.title.trim()) { alert("Please enter a title first."); return; }
+    setUploading(true);
+    const uploadUrl = await generateUploadUrl({ token });
+    const res = await fetch(uploadUrl, { method: "POST", headers: { "Content-Type": file.type }, body: file });
+    const { storageId } = await res.json();
+    await addImage({ token, storageId, title: form.title, source: form.source || undefined });
+    setForm({ title: "", source: "" });
+    setUploading(false);
+  };
+
+  return (
+    <div className="space-y-8">
+      <h2 className="text-xl font-semibold">Image Library</h2>
+
+      <div className="border rounded-xl p-6 bg-gray-50 space-y-4">
+        <h3 className="font-semibold text-sm">Add new image</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <Field label="Title / alt text *">
+            <input className={input} value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. SIAF campus in Davos" />
+          </Field>
+          <Field label="Source / credit (optional)">
+            <input className={input} value={form.source} onChange={e => setForm(f => ({ ...f, source: e.target.value }))} placeholder="e.g. © SIAF 2024" />
+          </Field>
+        </div>
+        <Field label="Image file">
+          <input type="file" accept="image/*" className="text-sm"
+            onChange={e => e.target.files?.[0] && handleUpload(e.target.files[0])} />
+          {uploading && <p className="text-xs text-gray-500 mt-1">Uploading…</p>}
+        </Field>
+      </div>
+
+      {images.length === 0 ? (
+        <p className="text-gray-400 text-sm italic">No images yet.</p>
+      ) : (
+        <div className="grid grid-cols-3 gap-4">
+          {(images as any[]).map(img => (
+            <div key={img._id} className="border rounded-xl overflow-hidden bg-white" style={{ boxShadow: "0 2px 8px -2px rgba(15,23,42,0.08)" }}>
+              <div className="aspect-video bg-gray-100 overflow-hidden">
+                <img src={img.url} className="w-full h-full object-cover" alt={img.title} />
+              </div>
+              <div className="p-3 space-y-1">
+                <p className="font-medium text-sm">{img.title}</p>
+                {img.source && <p className="text-xs text-gray-400">{img.source}</p>}
+                <button
+                  className={`${btnDanger} text-xs mt-2`}
+                  onClick={() => { if (window.confirm(`Delete "${img.title}"?`)) removeImage({ token, id: img._id }); }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -799,7 +932,7 @@ function SettingsAdmin({ token }: { token: string }) {
 
 // ── Main admin page ────────────────────────────────────────────────────────────
 
-const TABS = ["Team", "Publications", "Research", "Open Positions", "Pages", "Settings"] as const;
+const TABS = ["Team", "Publications", "Research", "Open Positions", "Pages", "Images", "Settings"] as const;
 type Tab = typeof TABS[number];
 
 export default function AdminPage() {
@@ -853,6 +986,7 @@ export default function AdminPage() {
         {tab === "Research" && <ResearchAdmin token={token} />}
         {tab === "Open Positions" && <OpenPositionsAdmin token={token} />}
         {tab === "Pages" && <PagesAdmin token={token} />}
+        {tab === "Images" && <ImagesAdmin token={token} />}
         {tab === "Settings" && <SettingsAdmin token={token} />}
       </div>
     </div>
